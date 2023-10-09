@@ -16,9 +16,8 @@ def reviews():
     if form.validate_on_submit():
 
         review = Review(author=form.author.data,
-                        review_title= form.title.data,
-                        review_text=form.content.data,
-                        approved=form.approved.data)
+                        title= form.title.data,
+                        content=form.content.data)
         
         with app.app_context():
             review.insert()

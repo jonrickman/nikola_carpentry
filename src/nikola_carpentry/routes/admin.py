@@ -34,5 +34,3 @@ def logout():
     logout_user()
     flash("You Have Been Logged Out!  Thanks For Stopping By...")
     return redirect(url_for("login"))
-
-

@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -26,6 +27,9 @@ app = Flask(__name__, template_folder="templates")
 # Configure Database
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 app.config["SECRET_KEY"] = "password"
+app.config["ROOT"] = Path(__file__).parent
+app.config["UPLOAD_FOLDER"] = "static"
+app.config["MAX_CONTENT-PATH"] = 25 * 1000 * 1000
 
 db: SQLAlchemy = SQLAlchemy(model_class=Base, app=app)
 

@@ -7,10 +7,15 @@
 {% endblock %}
 <!--Body-->
 {% block body %}
+
+
 {% for message in get_flashed_messages() %}
 <h2>{{ message }}</h2>
 {% endfor %}
-<h1>Hello {{user.username}}</h1>
+
+<!-- admin section -->
+{% if user.username %}
+<h1>Review Admin Panel: Welcome {{user.username}}</h1>
 
 {% if unapproved_reviews %}
 <div class="container-fluid">
@@ -44,6 +49,7 @@
   <span id="review-count">
     No New Unapproved Customer Reviews
   </span>
+  {% endif %}
   {% endif %}
 {% if approved_reviews %}
 <div class="container-fluid">

@@ -7,4 +7,78 @@
 {% endblock %}
 <!--Body-->
 {% block body %}
-{% endblock %}
+{% for message in get_flashed_messages() %}
+<h2>{{ message }}</h2>
+{% endfor %}
+
+{% if ready_projects %}
+<div class="container-fluid">
+
+  {% for project in ready_projects %}
+  <div class="shadow p-3 mb-5 bg-body rounded project">
+    <span class="author">{{ project.title }}</span>
+    <br />
+    
+    <span class="post-date">{{ project.pretty_date() }}</span>
+    <br />
+    
+    <div class="project-text">
+      {{ project.content|safe }}
+    </div>
+    <br />
+    <div class="project-files">
+      {% for project_file in project.get_files() %}
+      <img src={{ url_for('static', filename=project_file) }} />
+      {% endfor %}
+    </div>
+    <br />
+    
+    <a href="{{ url_for('approve_project', project_id=project.id)}}"><button>Approve</button></a>
+    <a href="{{ url_for('delete_project', project_id=project.id)}}"><button>Delete</button></a>
+    </form>
+      </div>
+
+  {% endfor %}
+  {% else %}  
+  <!-- <span id="project-count">
+    No New Unapproved Customer Projects
+  </span> -->
+  {% endif %}
+{% if approved_projects %}
+<div class="container-fluid">
+  <span id="project-count">
+    {{ approved_projects|length }} Customer Projects
+  </span>
+  
+{% endif %}
+
+  <!-- <div class="parent container d-flex justify-content-center align-items-center h-100"> -->
+  <div>
+    <div class="container-fluid new-project">
+      <span id="add-project">Add a project</span>
+      <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag()}}
+
+
+        <div class="row">
+          {{ form.title.label }}
+          {{ form.title }}
+        </div>
+
+        {{ form.content() }}
+        {{ ckeditor.load() }}
+        {{ ckeditor.config(name='content') }}
+
+        <div class="row">
+          {{ form.files }}
+        </div>
+
+        <div class="row">
+          {{ form.submit(class="btn btn-primary col-sm-5")}}
+        </div>
+      </form>
+
+
+    </div>
+  </div>
+  {% endblock %}
