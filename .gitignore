@@ -165,3 +165,7 @@ cython_debug/
 
 # custom
 dev.py
+# static image uploads... don't create these
+**/static/*.png 
+# editor settings not actual config settings
+settings.json

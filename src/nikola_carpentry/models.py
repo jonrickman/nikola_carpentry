@@ -1,6 +1,5 @@
 import os
 import json
-from pathlib import Path 
 from nikola_carpentry import db, login_manager, app
 from flask_login import UserMixin
 from sqlalchemy.sql import func
@@ -14,7 +13,7 @@ def load_user(user_id: int):
 
 
 class AdminUser(db.Model, UserMixin):
-    __table_args__ = {'extend_existing': True}
+    __table_args__ = {"extend_existing": True}
     id = Column(Integer, primary_key=True)
     username = Column(String(20), unique=True, nullable=False)
     password_hash = Column(String, nullable=False)
@@ -32,7 +31,7 @@ class AdminUser(db.Model, UserMixin):
 
 
 class Project(db.Model):
-    __table_args__ = {'extend_existing': True}
+    __table_args__ = {"extend_existing": True}
 
     id = Column(Integer, primary_key=True)
     title = Column(String, nullable=False)
@@ -47,23 +46,22 @@ class Project(db.Model):
     def insert(self):
         db.session.add(self)
         db.session.commit()
-    
+
     def pretty_date(self) -> str:
         month = self.posted.strftime("%B")
         year = self.posted.strftime("%Y")
         return f"{month} {year}"
 
     def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, 
-            sort_keys=True, indent=4)
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
     def get_files(self):
         files = ProjectFile.query.filter_by(project_id=self.id).all()
         return files
-    
+
 
 class ProjectFile(db.Model):
-    __table_args__ = {'extend_existing': True}
+    __table_args__ = {"extend_existing": True}
 
     id = Column(Integer, primary_key=True)
     project_id = Column(Integer, ForeignKey("project.id"))
@@ -72,7 +70,7 @@ class ProjectFile(db.Model):
     def __init__(self, project_id, filepath) -> None:
         self.project_id = project_id
         self.filepath = filepath
-        
+
     def insert(self):
         db.session.add(self)
         db.session.commit()
@@ -83,12 +81,13 @@ class ProjectFile(db.Model):
                 return fobj.read()
         else:
             return "None"
-        
+
     def __str__(self):
         return self.filepath
 
+
 class Review(db.Model):
-    __table_args__ = {'extend_existing': True}
+    __table_args__ = {"extend_existing": True}
 
     id = Column(Integer, primary_key=True)
     author = Column(String, nullable=True)
@@ -106,16 +105,14 @@ class Review(db.Model):
     def insert(self):
         db.session.add(self)
         db.session.commit()
-    
-    
+
     def pretty_date(self) -> str:
         month = self.posted.strftime("%B")
         year = self.posted.strftime("%Y")
         return f"{month} {year}"
 
     def toJSON(self):
-        return json.dumps(self, default=lambda o: o.__dict__, 
-            sort_keys=True, indent=4)
+        return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
 
 if __name__ == "__main__":

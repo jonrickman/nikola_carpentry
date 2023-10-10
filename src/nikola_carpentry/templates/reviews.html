@@ -28,13 +28,13 @@
 
     <span class="author">Posted by: {{ review.author }}</span>
     <br />
-    
+
     <span class="title">Summary: {{ review.title }}</span>
     <br />
-    
+
     <span class="post-date">{{ review.pretty_date() }}</span>
     <br />
-    
+
     <div class="review-text">
       {{ review.content|safe }}
     </div>
@@ -42,40 +42,40 @@
     <a href="{{ url_for('approve_review', review_id=review.id)}}"><button>Approve</button></a>
     <a href="{{ url_for('delete_review', review_id=review.id)}}"><button>Delete</button></a>
     </form>
-      </div>
+  </div>
 
   {% endfor %}
-  {% else %}  
+  {% else %}
   <span id="review-count">
     No New Unapproved Customer Reviews
   </span>
   {% endif %}
   {% endif %}
-{% if approved_reviews %}
-<div class="container-fluid">
-  <span id="review-count">
-    {{ approved_reviews|length }} Customer Reviews
-  </span>
-  
-  {% for review in approved_reviews %}
-  <div class="shadow p-3 mb-5 bg-body rounded review">
+  {% if approved_reviews %}
+  <div class="container-fluid">
+    <span id="review-count">
+      {{ approved_reviews|length }} Customer Reviews
+    </span>
 
-    <div class="review-header">
-      <span class="author">Posted by: {{ review.author }}</span>
-      <br />
-      <span class="title">Summary: {{ review.title }}</span>
-      <br />
-      <span class="post-date">{{ review.pretty_date() }}</span>
-      <br />
+    {% for review in approved_reviews %}
+    <div class="shadow p-3 mb-5 bg-body rounded review">
+
+      <div class="review-header">
+        <span class="author">Posted by: {{ review.author }}</span>
+        <br />
+        <span class="title">Summary: {{ review.title }}</span>
+        <br />
+        <span class="post-date">{{ review.pretty_date() }}</span>
+        <br />
+      </div>
+      <div class="review-text">
+        {{ review.content|safe }}
+      </div>
     </div>
-    <div class="review-text">
-      {{ review.content|safe }}
-    </div>
+    {% endfor %}
+
   </div>
-  {% endfor %}
-
-</div>
-{% endif %}
+  {% endif %}
 
   <!-- <div class="parent container d-flex justify-content-center align-items-center h-100"> -->
   <div>

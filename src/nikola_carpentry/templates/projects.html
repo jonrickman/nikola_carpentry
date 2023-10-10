@@ -7,67 +7,62 @@
 {% endblock %}
 <!--Body-->
 {% block body %}
+
 {% for message in get_flashed_messages() %}
 <h2>{{ message }}</h2>
 {% endfor %}
 
+<div class="container">
+
+<div class="mt-4 p-5 bg-primary text-white rounded">
+  <h1>Custom Projects</h1>
+</div>
+
 {% if ready_projects %}
-<div class="container-fluid">
+<div id="project-pane" class="container-fluid">
 
   {% for project in ready_projects %}
-  <div class="shadow p-3 mb-5 bg-body rounded project">
-    <span class="author">{{ project.title }}</span>
+  <div class="project">
+    <span class="project-title">{{ project.title }}</span>
     <br />
-    
-    <span class="post-date">{{ project.pretty_date() }}</span>
+
+    <span class="project-date">{{ project.pretty_date() }}</span>
     <br />
-    
-    <div class="project-text">
+
+    <div class="project-content">
       {{ project.content|safe }}
     </div>
     <br />
     <div class="project-files">
       {% for project_file in project.get_files() %}
-      <img src={{ url_for('static', filename=project_file) }} />
+      <img src={{ url_for('static', filename=project_file) }} class="project-image"/>
       {% endfor %}
     </div>
     <br />
-    
-    <a href="{{ url_for('approve_project', project_id=project.id)}}"><button>Approve</button></a>
-    <a href="{{ url_for('delete_project', project_id=project.id)}}"><button>Delete</button></a>
     </form>
-      </div>
+  </div>
 
   {% endfor %}
-  {% else %}  
-  <!-- <span id="project-count">
-    No New Unapproved Customer Projects
-  </span> -->
+  <!-- end of project-pane -->
   {% endif %}
-{% if approved_projects %}
-<div class="container-fluid">
-  <span id="project-count">
-    {{ approved_projects|length }} Customer Projects
-  </span>
-  
-{% endif %}
 
-  <!-- <div class="parent container d-flex justify-content-center align-items-center h-100"> -->
-  <div>
-    <div class="container-fluid new-project">
+  {% if user.username %}
+      <div class="container-fluid project">
       <span id="add-project">Add a project</span>
       <form method="POST" enctype="multipart/form-data">
         {{ form.hidden_tag()}}
 
-
         <div class="row">
-          {{ form.title.label }}
-          {{ form.title }}
+          {{ form.title.label(class="project-title-label") }}
+          {{ form.title(class="project-title") }}
         </div>
 
-        {{ form.content() }}
-        {{ ckeditor.load() }}
-        {{ ckeditor.config(name='content') }}
+        <div class="project-content">
+          {{ form.content.label}}
+          {{ form.content() }}
+          {{ ckeditor.load() }}
+          {{ ckeditor.config(name='content') }}
+        </div>
 
         <div class="row">
           {{ form.files }}
@@ -77,8 +72,6 @@
           {{ form.submit(class="btn btn-primary col-sm-5")}}
         </div>
       </form>
-
-
-    </div>
+    {% endif %}
   </div>
-  {% endblock %}
+    {% endblock %}

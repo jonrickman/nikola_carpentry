@@ -17,12 +17,13 @@
     </div>
 
     <div class="row">
-      {{ loginform.password.label(class="col-sm-4")}} {{ loginform.password(class="col-sm-8")}}  
+      {{ loginform.password.label(class="col-sm-4")}} {{ loginform.password(class="col-sm-8")}}
     </div>
 
     <div class="row">
-      {{ loginform.submit(class="btn btn-primary col-sm-5")}}  
-    <div class="form-check">{{ loginform.remember(class="form-check-input") }} {{ loginform.remember.label(class="form-check-label") }}</div>
+      {{ loginform.submit(class="btn btn-primary col-sm-5")}}
+      <div class="form-check">{{ loginform.remember(class="form-check-input") }} {{
+        loginform.remember.label(class="form-check-label") }}</div>
     </div>
 
     {% for message in get_flashed_messages() %}
@@ -33,7 +34,7 @@
       document.getElementById("username").value = "{{username}}";
       document.getElementById("password").value = "{{password}}";
     </script>
-  </form> 
+  </form>
   <div class="container w-25"></div>
 </div>
 {% endif %} {% endblock %}

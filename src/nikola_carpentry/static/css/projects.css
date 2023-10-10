@@ -1,3 +1,55 @@
 #add-project{
     font-size: xx-large;
 }
+
+#project-pane{
+    border: 3px solid blue;
+    border-radius: 5px;
+    display: block;
+}
+.project{
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    padding:3% 5% 3% 3%;
+    margin:1% 0% 1% 0%;
+    border: 3px solid blue;
+    border-radius: 5px;
+    display: block;
+}
+
+.project-title-label{
+    font-size: x-large;
+}
+
+.project-title{
+    font-size: xx-large;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+}
+
+.project-content{
+    margin-top:2%;
+}
+
+.project-image{  
+    width: 40%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+.project-date{
+    font-size: x-large;
+}
+
+.project-content{
+    font-size: large;
+}
+
+img:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+  }
