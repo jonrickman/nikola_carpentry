@@ -78,15 +78,24 @@ class ProjectFile(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    def load(self):
-        if os.path.exists(self.filepath):
-            with open(self.filepath, "rb") as fobj:
-                return fobj.read()
-        else:
-            return "None"
-
     def __str__(self):
         return self.filepath
+
+
+class Contact(db.Model):
+    __table_args__ = {"extend_existing": True}
+
+    id = Column(Integer, primary_key=True)
+    subject = Column(String, nullable=True)
+    email   = Column(String, nullable=True)
+    phone   = Column(String, nullable=True)
+    content = Column(String, nullable=True)
+
+    def __init__(self, subject, email, phone, content) -> None:
+        self.subject = subject
+        self.email   = email
+        self.phone   = phone 
+        self.content =  content
 
 
 class Review(db.Model):

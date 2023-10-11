@@ -6,6 +6,7 @@ from flask_login import LoginManager
 from sqlalchemy import MetaData
 from sqlalchemy.orm import DeclarativeBase
 from flask_ckeditor import CKEditor
+from nikola_carpentry.config import config
 
 
 class Base(DeclarativeBase):
@@ -26,11 +27,20 @@ class Base(DeclarativeBase):
 app = Flask(__name__, template_folder="templates")
 
 # Configure Database
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
-app.config["SECRET_KEY"] = "password"
-app.config["ROOT"] = Path(__file__).parent
-app.config["UPLOAD_FOLDER"] = "static"
-app.config["MAX_CONTENT-PATH"] = 25 * 1000 * 1000
+app.config["SQLALCHEMY_DATABASE_URI"] = config["SQLALCHEMY_DATABASE_URI"]
+app.config["SECRET_KEY"] = config["SECRET_KEY"]
+
+# Configure file specifics
+app.config["ROOT"] = config["ROOT"]
+app.config["UPLOAD_FOLDER"] = config["UPLOAD_FOLDER"]
+app.config["MAX_CONTENT_LENGTH"] = config["MAX_CONTENT_LENGTH"]
+
+# Configure email settings
+app.config["SMTP_HOST"] = config["SMTP_HOST"]
+app.config["SMTP_PORT"] = config["SMTP_PORT"]
+app.config["SMTP_SERVICE_USER"] = config["SMTP_SERVICE_USER"]
+app.config["SMTP_SERVICE_PASSWORD"] = config["SMTP_SERVICE_PASSWORD"]
+app.config["OUTGOING_EMAIL_ADDRESS"] = config["OUTGOING_EMAIL_ADDRESS"]
 
 db: SQLAlchemy = SQLAlchemy(model_class=Base, app=app)
 

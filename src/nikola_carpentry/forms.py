@@ -19,7 +19,11 @@ class LoginForm(FlaskForm):
 
 
 class ContactForm(FlaskForm):
-    contact_name = StringField("Name: ", validators=[DataRequired()])
+    subject = StringField("Subject")
+    contact_name = StringField("Name", validators=[DataRequired()])
+    email = StringField("Email Address")
+    phone = StringField("Email Address")
+    content = CKEditorField("Content: ", validators=[DataRequired()])
     submit = SubmitField("Submit!")
 
 
