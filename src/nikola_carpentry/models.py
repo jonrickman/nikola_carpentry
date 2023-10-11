@@ -38,6 +38,9 @@ class Project(db.Model):
     content = Column(String, nullable=False)
     posted = Column(DateTime(timezone=True), server_default=func.now())
     approved = Column(Boolean, default=False)
+    files = db.relationship(
+        "ProjectFile", secondary="project_x_file", back_populates="projects"
+    )
 
     def __init__(self, title, content) -> None:
         self.title = title
@@ -56,19 +59,19 @@ class Project(db.Model):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
     def get_files(self):
-        files = ProjectFile.query.filter_by(project_id=self.id).all()
-        return files
+        return self.files
 
 
 class ProjectFile(db.Model):
     __table_args__ = {"extend_existing": True}
 
     id = Column(Integer, primary_key=True)
-    project_id = Column(Integer, ForeignKey("project.id"))
     filepath = Column(String, nullable=False)
+    projects = db.relationship(
+        "Project", secondary="project_x_file", back_populates="files"
+    )
 
-    def __init__(self, project_id, filepath) -> None:
-        self.project_id = project_id
+    def __init__(self, filepath) -> None:
         self.filepath = filepath
 
     def insert(self):
@@ -113,6 +116,14 @@ class Review(db.Model):
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
+
+
+project_x_file = db.Table(
+    "project_x_file",
+    Column("project_file_id", Integer, ForeignKey("project_file.id"), primary_key=True),
+    Column("project_id", Integer, ForeignKey("project.id"), primary_key=True),
+    extend_existing=True,
+)
 
 
 if __name__ == "__main__":

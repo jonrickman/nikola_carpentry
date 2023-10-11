@@ -14,40 +14,43 @@
 
 <div class="container">
 
-<div class="mt-4 p-5 bg-primary text-white rounded">
-  <h1>Custom Projects</h1>
-</div>
-
-{% if ready_projects %}
-<div id="project-pane" class="container-fluid">
-
-  {% for project in ready_projects %}
-  <div class="project">
-    <span class="project-title">{{ project.title }}</span>
-    <br />
-
-    <span class="project-date">{{ project.pretty_date() }}</span>
-    <br />
-
-    <div class="project-content">
-      {{ project.content|safe }}
-    </div>
-    <br />
-    <div class="project-files">
-      {% for project_file in project.get_files() %}
-      <img src={{ url_for('static', filename=project_file) }} class="project-image"/>
-      {% endfor %}
-    </div>
-    <br />
-    </form>
+  <div class="mt-4 p-5 bg-primary text-white rounded">
+    <h1>Custom Projects</h1>
   </div>
 
-  {% endfor %}
-  <!-- end of project-pane -->
-  {% endif %}
+  {% if ready_projects %}
+  <div id="project-pane" class="container-fluid">
 
-  {% if user.username %}
-      <div class="container-fluid project">
+    {% for project in ready_projects %}
+    <div class="project">
+      <span class="project-title">{{ project.title }}</span>
+      <br />
+
+      <span class="project-date">{{ project.pretty_date() }}</span>
+      <br />
+
+      <div class="project-content">
+        {{ project.content|safe }}
+      </div>
+      <br />
+      <div class="project-files">
+
+        {% for project_file in project.get_files() %}
+        <div class="grid-item">
+          <img src="{{ url_for('static', filename=project_file) }}" />
+        </div>
+        {% endfor %}
+      </div>
+      <br />
+      </form>
+    </div>
+
+    {% endfor %}
+    <!-- end of project-pane -->
+    {% endif %}
+
+    {% if user.username %}
+    <div class="container-fluid project">
       <span id="add-project">Add a project</span>
       <form method="POST" enctype="multipart/form-data">
         {{ form.hidden_tag()}}
@@ -68,10 +71,28 @@
           {{ form.files }}
         </div>
 
+        <!-- TODO: this needs cleanup -->
+        <div class="scroll-container">
+          <div class="grid-container">
+            {% for project_file in project_files %}
+            <div class="grid-item scroll-content">
+              <img src="{{ url_for('static', filename=project_file) }}" alt="{{ project_file.name }}">
+              <div class="overlay">
+                <input type="checkbox" name="selected_images" value="{{ project_file.id }}">
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
         <div class="row">
           {{ form.submit(class="btn btn-primary col-sm-5")}}
         </div>
+
       </form>
-    {% endif %}
+      {% endif %}
+    </div>
   </div>
-    {% endblock %}
+</div>
+
+{% endblock %}
