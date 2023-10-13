@@ -40,7 +40,7 @@ app.config["SMTP_HOST"] = config["SMTP_HOST"]
 app.config["SMTP_PORT"] = config["SMTP_PORT"]
 app.config["SMTP_SERVICE_USER"] = config["SMTP_SERVICE_USER"]
 app.config["SMTP_SERVICE_PASSWORD"] = config["SMTP_SERVICE_PASSWORD"]
-app.config["OUTGOING_EMAIL_ADDRESS"] = config["OUTGOING_EMAIL_ADDRESS"]
+app.config["NOTIFICATION_RECIPIENTS"] = config["NOTIFICATION_RECIPIENTS"]
 
 db: SQLAlchemy = SQLAlchemy(model_class=Base, app=app)
 

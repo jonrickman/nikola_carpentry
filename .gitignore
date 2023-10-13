@@ -169,3 +169,6 @@ dev.py
 **/static/*.png 
 # editor settings not actual config settings
 settings.json
+# prod config
+**/config.py
+src/nikola_carpentry/config.py

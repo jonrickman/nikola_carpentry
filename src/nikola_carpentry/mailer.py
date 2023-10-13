@@ -1,13 +1,26 @@
-from smtplib import SMTP
+import smtplib
 from nikola_carpentry import app, Contact
+from email.mime.text import MIMEText
 
 HOST = app.config["SMTP_HOST"]
 PORT = app.config["SMTP_PORT"]
 SERVICE_USER = app.config["SMTP_SERVICE_USER"]
 SERVICE_PASSWORD = app.config["SMTP_SERVICE_PASSWORD"]
-OUTGOING_EMAIL_ADDRESS = app.config["OUTGOING_EMAIL_ADDRESS"]
+NOTIFICATION_RECIPIENTS = app.config["NOTIFICATION_RECIPIENTS"]
 
 
 def send_contact_email(contact: Contact) -> None:
-    with SMTP(HOST) as smtp:
-        smtp.noop()
+
+    msg = MIMEText(contact.content)
+    msg["Subject"] = contact.subject
+    msg["To"] = ', '.join(NOTIFICATION_RECIPIENTS)
+    msg["From"] = SERVICE_USER
+
+    with smtplib.SMTP(HOST, PORT) as server:
+        server.login(SERVICE_USER, SERVICE_PASSWORD)
+        server.sendmail(msg["From"] , msg["To"] , msg.as_string())
+
+    print("Message sent!")
+
+contact = Contact("foobar test", "email_add", "phonenumber", "some content\ntesting foo bar baz.")
+send_contact_email(contact)
