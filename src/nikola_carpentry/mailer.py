@@ -10,17 +10,13 @@ NOTIFICATION_RECIPIENTS = app.config["NOTIFICATION_RECIPIENTS"]
 
 
 def send_contact_email(contact: Contact) -> None:
-
     msg = MIMEText(contact.content)
     msg["Subject"] = contact.subject
-    msg["To"] = ', '.join(NOTIFICATION_RECIPIENTS)
+    msg["To"] = ", ".join(NOTIFICATION_RECIPIENTS)
     msg["From"] = SERVICE_USER
 
     with smtplib.SMTP(HOST, PORT) as server:
         server.login(SERVICE_USER, SERVICE_PASSWORD)
-        server.sendmail(msg["From"] , msg["To"] , msg.as_string())
+        server.sendmail(msg["From"], msg["To"], msg.as_string())
 
     print("Message sent!")
-
-contact = Contact("foobar test", "email_add", "phonenumber", "some content\ntesting foo bar baz.")
-send_contact_email(contact)

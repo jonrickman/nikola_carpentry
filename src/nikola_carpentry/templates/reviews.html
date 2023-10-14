@@ -24,54 +24,26 @@
   </span>
 
   {% for review in unapproved_reviews %}
-  <div class="shadow p-3 mb-5 bg-body rounded review">
-
-    <span class="author">Posted by: {{ review.author }}</span>
-    <br />
-
-    <span class="title">Summary: {{ review.title }}</span>
-    <br />
-
-    <span class="post-date">{{ review.pretty_date() }}</span>
-    <br />
-
-    <div class="review-text">
-      {{ review.content|safe }}
-    </div>
-    <br />
-    <a href="{{ url_for('approve_review', review_id=review.id)}}"><button>Approve</button></a>
-    <a href="{{ url_for('delete_review', review_id=review.id)}}"><button>Delete</button></a>
-    </form>
-  </div>
-
+  {% include 'review.html' %}
   {% endfor %}
+  <!-- no new reviews -->
   {% else %}
   <span id="review-count">
     No New Unapproved Customer Reviews
   </span>
+  <!-- end unapproved review section -->
   {% endif %}
+  <!-- end admin panel section -->
   {% endif %}
+
   {% if approved_reviews %}
   <div class="container-fluid">
     <span id="review-count">
-      {{ approved_reviews|length }} Customer Reviews
+      {{ approved_reviews|length }} Reviews
     </span>
 
     {% for review in approved_reviews %}
-    <div class="shadow p-3 mb-5 bg-body rounded review">
-
-      <div class="review-header">
-        <span class="author">Posted by: {{ review.author }}</span>
-        <br />
-        <span class="title">Summary: {{ review.title }}</span>
-        <br />
-        <span class="post-date">{{ review.pretty_date() }}</span>
-        <br />
-      </div>
-      <div class="review-text">
-        {{ review.content|safe }}
-      </div>
-    </div>
+    {% include 'review.html' %}
     {% endfor %}
 
   </div>

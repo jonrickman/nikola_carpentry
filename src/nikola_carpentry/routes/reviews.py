@@ -52,6 +52,14 @@ def approve_review(review_id: int):
     return "Nope"
 
 
+# TODO: write this
+@app.route("/reviews/edit/<int:review_id>/")
+def edit_review(review_id: int):
+    print(review_id)
+
+    return "Nope"
+
+
 @app.route("/reviews/delete/<int:review_id>/")
 def delete_review(review_id: int):
     Review.query.filter_by(id=review_id).delete()

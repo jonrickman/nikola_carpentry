@@ -20,7 +20,16 @@ def contact():
             subject=subject, contact_name=contact_name, email=email, phone=phone, content=content
         )
 
+        # store the info
+        db.session.add(contact)
+        db.session.commit()
+
+
+        # send the request
         send_contact_email(contact)
+
+        # TODO: update the contact flag
+
         flash("Review created successfully. Review must be approved before it appears.")
         next_page = request.args.get("next")
         return redirect(next_page) if next_page else redirect(url_for("contact"))

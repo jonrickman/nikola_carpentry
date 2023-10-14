@@ -1,4 +1,3 @@
-import os
 import json
 from nikola_carpentry import db, login_manager, app
 from flask_login import UserMixin
@@ -87,15 +86,17 @@ class Contact(db.Model):
 
     id = Column(Integer, primary_key=True)
     subject = Column(String, nullable=True)
-    email   = Column(String, nullable=True)
-    phone   = Column(String, nullable=True)
+    email = Column(String, nullable=True)
+    phone = Column(String, nullable=True)
     content = Column(String, nullable=True)
+    sent = Column(Boolean, default=False)
 
-    def __init__(self, subject, email, phone, content) -> None:
+    def __init__(self, contact_name, subject, email, phone, content) -> None:
+        self.contact_name = contact_name
         self.subject = subject
-        self.email   = email
-        self.phone   = phone 
-        self.content =  content
+        self.email = email
+        self.phone = phone
+        self.content = content
 
 
 class Review(db.Model):
