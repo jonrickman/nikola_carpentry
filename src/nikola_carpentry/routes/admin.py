@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, current_user, login_required, logout_user
 from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import check_password_hash
-from nikola_carpentry import app, LoginForm
+from nikola_carpentry import app, LoginForm, UserForm
 from nikola_carpentry.models import AdminUser
 
 basicAuth = HTTPBasicAuth()
@@ -11,6 +11,20 @@ basicAuth = HTTPBasicAuth()
 @app.route("/")
 def home():
     return render_template("index.html")
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+@login_required
+@app.route("/admin")
+def admin_home():
+    if not current_user.is_authenticated:
+        return render_template("403.html")
+
+    form = UserForm()
+    users = AdminUser.query.filter().all()
+    return render_template("admin.html", form=form, user=current_user, users=users)
 
 
 @app.route("/login", methods=["GET", "POST"])

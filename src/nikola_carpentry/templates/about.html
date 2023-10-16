@@ -2,7 +2,7 @@
 
 <!-- Head -->
 {% block head %}
-<title>Admin Panel</title>
+<title>About</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}" type="text/css" />
 {% endblock %}
 <!--Body-->
@@ -12,11 +12,7 @@
 <h2>{{ message }}</h2>
 {% endfor %}
 
-<!-- admin section -->
-<h1>Review Admin Panel: Welcome {{user.username}}</h1>
+About... TODO
 
-
-
-{% include 'users.html' %}
 
 {% endblock %}

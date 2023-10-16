@@ -73,7 +73,7 @@ def get_project(project_id: int):
     )
 
 
-@app.route("/projects/approve/<int:project_id>/")
+@app.route("/projects/edit/<int:project_id>/")
 def approve_project(project_id: int):
     # Project.query.filter_by(id=project_id).update({"approved": True})
 
@@ -81,10 +81,10 @@ def approve_project(project_id: int):
     #     db.session.commit()
     #     return redirect(url_for("projects"))
 
-    return "Nope"
+    return "Not Implemented"
 
 
-@app.route("/projects/delete/<int:project_id>/")
+@app.route("/projects/view/<int:project_id>/")
 def delete_project(project_id: int):
     # Project.query.filter_by(id=project_id).delete()
 
@@ -92,4 +92,4 @@ def delete_project(project_id: int):
     #     db.session.commit()
     #     return redirect(url_for("projects"))
 
-    return "Nope"
+    return "Not Implemented"

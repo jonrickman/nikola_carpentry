@@ -1,0 +1,24 @@
+{% for user in users %}
+{% include 'user.html' %}
+{% endfor %}
+
+<div class="container-fluid new-user">
+    <span id="add-review">Add a user</span>
+    <form method="POST">
+        {{ form.hidden_tag()}}
+
+        <div class="row">
+            {{ form.username.label }}
+            {{ form.username }}
+        </div>
+
+        <div class="row">
+            {{ form.password.label }}
+            {{ form.password(type="password") }}
+        </div>
+
+        <div class="row">
+            {{ form.submit(class="btn btn-primary col-sm-5")}}
+        </div>
+    </form>
+</div>

@@ -10,11 +10,13 @@ def reviews():
     approved_reviews = Review.query.filter_by(approved=True).all()
     unapproved_reviews = Review.query.filter_by(approved=False).all()
 
+    average_rating = round(sum([r.rating for r in approved_reviews]) / len(approved_reviews), 2)
+
     form = ReviewForm()
 
     if form.validate_on_submit():
         review = Review(
-            author=form.author.data, title=form.title.data, content=form.content.data
+            author=form.author.data, rating=form.rating.data, title=form.title.data, content=form.content.data
         )
 
         with app.app_context():
@@ -30,6 +32,7 @@ def reviews():
         approved_reviews=approved_reviews,
         unapproved_reviews=unapproved_reviews,
         form=form,
+        average_rating=average_rating
     )
 
 
@@ -48,14 +51,6 @@ def approve_review(review_id: int):
     if current_user.is_authenticated:
         db.session.commit()
         return redirect(url_for("reviews"))
-
-    return "Nope"
-
-
-# TODO: write this
-@app.route("/reviews/edit/<int:review_id>/")
-def edit_review(review_id: int):
-    print(review_id)
 
     return "Nope"
 

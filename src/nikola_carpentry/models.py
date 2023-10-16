@@ -103,14 +103,15 @@ class Review(db.Model):
     __table_args__ = {"extend_existing": True}
 
     id = Column(Integer, primary_key=True)
+    rating = Column(Integer, nullable=False)
     author = Column(String, nullable=True)
     title = Column(String, nullable=False)
     content = Column(String, nullable=False)
     posted = Column(DateTime(timezone=True), server_default=func.now())
-    image_path = Column(String, nullable=True)
     approved = Column(Boolean, nullable=False, default=False)
 
-    def __init__(self, author, title, content) -> None:
+    def __init__(self, rating, author, title, content) -> None:
+        self.rating = rating
         self.author = author
         self.title = title
         self.content = content
