@@ -1,14 +1,11 @@
-<div class="container-fluid user">
+<tr>
+    <th scope="row"> {{ user.id }} </th>
 
-    <div class="row username">
-        Username: 
-        {{ user.username }}
-    </div>
+    <td> {{ user.username }} </td>
 
-    <div class="row password_hash">
-        Password Hash: 
-        {{ user.password_hash }}
-    </div>
-    <!-- TODO: last active date and such -->
-    </form>
-</div>
+    <td> {{ user.email }} </td>
+
+    <td> {{ user.time_created }} </td>
+
+    <td> {{ user.time_updated }} </td>
+</tr>

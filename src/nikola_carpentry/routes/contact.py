@@ -17,13 +17,16 @@ def contact():
         content = form.content.data
 
         contact = Contact(
-            subject=subject, contact_name=contact_name, email=email, phone=phone, content=content
+            subject=subject,
+            contact_name=contact_name,
+            email=email,
+            phone=phone,
+            content=content,
         )
 
         # store the info
         db.session.add(contact)
         db.session.commit()
-
 
         # send the request
         send_contact_email(contact)

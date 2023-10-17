@@ -1,6 +1,19 @@
-{% for user in users %}
-{% include 'user.html' %}
-{% endfor %}
+<table class="table table-dark table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email Address</th>
+            <th scope="col">Created</th>
+            <th scope="col">Last Login</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        {% include 'user.html' %}
+        {% endfor %}
+    </tbody>
+</table>
 
 <div class="container-fluid new-user">
     <span id="add-review">Add a user</span>
@@ -10,6 +23,11 @@
         <div class="row">
             {{ form.username.label }}
             {{ form.username }}
+        </div>
+
+        <div class="row">
+            {{ form.email.label }}
+            {{ form.email }}
         </div>
 
         <div class="row">

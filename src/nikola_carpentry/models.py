@@ -15,14 +15,15 @@ class AdminUser(db.Model, UserMixin):
     __table_args__ = {"extend_existing": True}
     id = Column(Integer, primary_key=True)
     username = Column(String(20), unique=True, nullable=False)
+    email = Column(String, nullable=False)
     password_hash = Column(String, nullable=False)
     time_created = Column(DateTime(timezone=True), server_default=func.now())
     time_updated = Column(DateTime(timezone=True), onupdate=func.now())
 
-    def __init__(self, username, password) -> None:
+    def __init__(self, username, password, email) -> None:
         self.username = username
-        password_hash = generate_password_hash(password)
-        self.password_hash = password_hash
+        self.password_hash = generate_password_hash(password)
+        self.email = email
 
     def insert(self):
         db.session.add(self)

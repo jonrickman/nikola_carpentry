@@ -11,19 +11,19 @@
 {% else %}
 <div class="parent container d-flex justify-content-center align-items-center h-100">
   <form method="POST">
-    {{ loginform.hidden_tag()}}
+    {{ form.hidden_tag()}}
     <div class="row">
-      {{ loginform.username.label(class="col-sm-4")}} {{loginform.username(class="col-sm-8")}}
+      {{ form.username.label(class="col-sm-4")}} {{form.username(class="col-sm-8")}}
     </div>
 
     <div class="row">
-      {{ loginform.password.label(class="col-sm-4")}} {{ loginform.password(class="col-sm-8")}}
+      {{ form.password.label(class="col-sm-4")}} {{ form.password(class="col-sm-8")}}
     </div>
 
     <div class="row">
-      {{ loginform.submit(class="btn btn-primary col-sm-5")}}
-      <div class="form-check">{{ loginform.remember(class="form-check-input") }} {{
-        loginform.remember.label(class="form-check-label") }}</div>
+      {{ form.submit(class="btn btn-primary col-sm-5")}}
+      <div class="form-check">{{ form.remember(class="form-check-input") }} {{
+        form.remember.label(class="form-check-label") }}</div>
     </div>
 
     {% for message in get_flashed_messages() %}

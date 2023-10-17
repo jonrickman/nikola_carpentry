@@ -15,7 +15,9 @@ from wtforms.validators import DataRequired, InputRequired
 class UserForm(FlaskForm):
     username = StringField("User Name", validators=[DataRequired()])
     password = PasswordField("Password", validators=[DataRequired()])
+    email = StringField("Email Address", validators=[DataRequired()])
     submit = SubmitField("Create User")
+
 
 class LoginForm(FlaskForm):
     username = StringField("User Name", validators=[DataRequired()])
@@ -43,7 +45,10 @@ class ProjectForm(FlaskForm):
 class ReviewForm(FlaskForm):
     author = StringField("Name")
     title = StringField("Title", validators=[DataRequired()])
-    rating = SelectField('Rating', choices=[('1', '1'), ('2', '2'), ('3', '3'), ('4', '4'), ('5', '5')],
-                         validators=[InputRequired()])
+    rating = SelectField(
+        "Rating",
+        choices=[("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("5", "5")],
+        validators=[InputRequired()],
+    )
     content = CKEditorField("Content", validators=[DataRequired()])
     submit = SubmitField("Submit!")
