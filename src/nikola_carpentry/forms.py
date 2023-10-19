@@ -19,6 +19,11 @@ class UserForm(FlaskForm):
     submit = SubmitField("Create User")
 
 
+class TagForm(FlaskForm):
+    tag_name = StringField("Tag Name", validators=[DataRequired()])
+    submit = SubmitField("Create Tag")
+
+
 class LoginForm(FlaskForm):
     username = StringField("User Name", validators=[DataRequired()])
     password = PasswordField("Password", validators=[DataRequired()])

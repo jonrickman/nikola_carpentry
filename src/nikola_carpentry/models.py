@@ -41,6 +41,7 @@ class Project(db.Model):
     files = db.relationship(
         "ProjectFile", secondary="project_x_file", back_populates="projects"
     )
+    tags = db.relationship("Tag", secondary="project_x_tag", back_populates="projects")
 
     def __init__(self, title, content) -> None:
         self.title = title
@@ -80,6 +81,26 @@ class ProjectFile(db.Model):
 
     def __str__(self):
         return self.filepath
+
+
+class Tag(db.Model):
+    __table_args__ = {"extend_existing": True}
+
+    id = Column(Integer, primary_key=True)
+    tag_name = Column(String, nullable=False)
+    projects = db.relationship(
+        "Project", secondary="project_x_tag", back_populates="tags"
+    )
+
+    def __init__(self, tag_name) -> None:
+        self.tag_name = tag_name
+
+    def insert(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def __str__(self):
+        return self.tag_name
 
 
 class Contact(db.Model):
@@ -137,6 +158,12 @@ project_x_file = db.Table(
     extend_existing=True,
 )
 
+project_x_file = db.Table(
+    "project_x_tag",
+    Column("tag_id", Integer, ForeignKey("tag.id"), primary_key=True),
+    Column("project_id", Integer, ForeignKey("project.id"), primary_key=True),
+    extend_existing=True,
+)
 
 if __name__ == "__main__":
     # Run this file directly to create the database tables.

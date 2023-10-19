@@ -18,25 +18,25 @@
 <div class="container-fluid new-user">
     <span id="add-review">Add a user</span>
     <form method="POST">
-        {{ form.hidden_tag()}}
+        {{ user_form.hidden_tag()}}
 
         <div class="row">
-            {{ form.username.label }}
-            {{ form.username }}
+            {{ user_form.username.label }}
+            {{ user_form.username }}
         </div>
 
         <div class="row">
-            {{ form.email.label }}
-            {{ form.email }}
+            {{ user_form.email.label }}
+            {{ user_form.email }}
         </div>
 
         <div class="row">
-            {{ form.password.label }}
-            {{ form.password(type="password") }}
+            {{ user_form.password.label }}
+            {{ user_form.password(type="password") }}
         </div>
 
         <div class="row">
-            {{ form.submit(class="btn btn-primary col-sm-5")}}
+            {{ user_form.submit(class="btn btn-primary col-sm-5")}}
         </div>
     </form>
 </div>

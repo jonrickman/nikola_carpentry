@@ -10,7 +10,10 @@ def reviews():
     approved_reviews = Review.query.filter_by(approved=True).all()
     unapproved_reviews = Review.query.filter_by(approved=False).all()
 
-    average_rating = round(sum([r.rating for r in approved_reviews]) / len(approved_reviews), 2)
+    average_rating = 5
+
+    if len(approved_reviews) > 0:
+        average_rating = round(sum([r.rating for r in approved_reviews]) / len(approved_reviews), 2)
 
     form = ReviewForm()
 

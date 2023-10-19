@@ -1,0 +1,29 @@
+<table class="table table-dark table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tag in tags %}
+        {% include 'tag.html' %}
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="container-fluid new-tag">
+    <span id="add-review">Add a tag</span>
+    <form method="POST">
+        {{ tag_form.hidden_tag()}}
+
+        <div class="row">
+            {{ tag_form.tag_name.label }}
+            {{ tag_form.tag_name }}
+        </div>
+
+        <div class="row">
+            {{ tag_form.submit(class="btn btn-primary col-sm-5")}}
+        </div>
+    </form>
+</div>
