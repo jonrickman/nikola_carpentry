@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user
 from nikola_carpentry import app, ProjectForm, db
-from nikola_carpentry.models import Project, ProjectFile
+from nikola_carpentry.models import Project, ProjectFile, Tag
 from werkzeug.utils import secure_filename
 
 
@@ -46,8 +46,11 @@ def projects():
             # TODO: get selected images, currently only getting new images
             project.files = new_project_files
 
-            tags = form.tags.data
-            print(tags)
+            # get the project tags
+            form_tags = form.tags.data
+            tags = [Tag.query.filter_by(tag_name=t).first() for t in form_tags]
+            project.tags = tags
+
             # store the project and files
             db.session.add(project)
             [db.session.add(p) for p in new_project_files]
@@ -82,21 +85,18 @@ def get_project(project_id: int):
 
 @app.route("/projects/edit/<int:project_id>/")
 def edit_project(project_id: int):
-    # Project.query.filter_by(id=project_id).update({"approved": True})
-
-    # if current_user.is_authenticated:
-    #     db.session.commit()
-    #     return redirect(url_for("projects"))
 
     return "Not Implemented"
 
 
 @app.route("/projects/view/<int:project_id>/")
 def delete_project(project_id: int):
-    # Project.query.filter_by(id=project_id).delete()
+    if not current_user.is_authenticated:
+        return url_for("forbidden", msg="Please log in to delete projects")
 
-    # if current_user.is_authenticated:
-    #     db.session.commit()
-    #     return redirect(url_for("projects"))
+    Project.query.filter_by(id=project_id).delete()
 
-    return "Not Implemented"
+    db.session.commit()
+    return redirect(url_for("projects"))
+
+

@@ -5,21 +5,37 @@
     <span class="project-date">{{ project.pretty_date() }}</span>
     <br />
 
-    <span class="project-tags">{{ project.tags }}</span>
+    {% if project.tags %}
+    <span class="project-tags">Tags</span>
     <br />
-
+    {% for tag in project.tags %}
+    <span class="project-tags">{{ tag.tag_name }}</span>
+    {% endfor %}
+    <br />
+    {% endif %}
     <div class="project-content">
         {{ project.content|safe }}
     </div>
     <br />
-    
 
+
+    {% if project.get_files() %}
     <div class="project-files">
         {% for project_file in project.get_files() %}
         <div class="grid-item">
+            <!-- TODO: Make a modal -->
+            <a href="{{ url_for('static', filename=project_file) }}">
             <img src="{{ url_for('static', filename=project_file) }}" />
+            </a>
         </div>
         {% endfor %}
     </div>
+    {% endif %}
+
     <br />
+    {% if user.username %}
+    <a href="{{ url_for('edit_project', project_id=project.id)}}"><button>Edit</button></a>
+    <a href="{{ url_for('delete_project', project_id=project.id)}}"><button>Delete</button></a>
+    {% endif %}
+
 </div>
