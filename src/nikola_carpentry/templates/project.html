@@ -1,0 +1,25 @@
+<div class="project">
+    <span class="project-title">{{ project.title }}</span>
+    <br />
+
+    <span class="project-date">{{ project.pretty_date() }}</span>
+    <br />
+
+    <span class="project-tags">{{ project.tags }}</span>
+    <br />
+
+    <div class="project-content">
+        {{ project.content|safe }}
+    </div>
+    <br />
+    
+
+    <div class="project-files">
+        {% for project_file in project.get_files() %}
+        <div class="grid-item">
+            <img src="{{ url_for('static', filename=project_file) }}" />
+        </div>
+        {% endfor %}
+    </div>
+    <br />
+</div>

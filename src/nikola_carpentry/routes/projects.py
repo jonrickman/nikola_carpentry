@@ -12,47 +12,54 @@ def projects():
 
     form = ProjectForm()
 
-    if form.validate_on_submit():
-        # create the project item
-        title = form.title.data
-        content = form.content.data
-        project = Project(title, content)
+    [print(f"key: {p} | data: {form.data[p]}") for p in form.data]
+    if request.method == "POST":
+        if form.validate_on_submit():
+            # create the project item
+            title = form.title.data
+            content = form.content.data
+            project = Project(title, content)
 
-        new_project_files = []
-        # iterate the files from the form
-        for f in form.files.data:
-            # if no files in form data will still return []
-            if not f:
-                continue
+            new_project_files = []
+            # iterate the files from the form
+            for f in form.files.data:
+                # if no files in form data will still return []
+                if not f:
+                    continue
 
-            # get the basename and create the project file
-            basename = secure_filename(f.filename)
-            project_file = ProjectFile(basename)
+                # get the basename and create the project file
+                basename = secure_filename(f.filename)
+                project_file = ProjectFile(basename)
 
-            # get the fully qualified file path
-            file_root = app.config["ROOT"]
-            upload_folder = app.config["UPLOAD_FOLDER"]
-            filepath = file_root / upload_folder / basename
+                # get the fully qualified file path
+                file_root = app.config["ROOT"]
+                upload_folder = app.config["UPLOAD_FOLDER"]
+                filepath = file_root / upload_folder / basename
 
-            # save the file
-            f.save(filepath)
-            # append file to new project files
-            new_project_files.append(project_file)
+                # save the file
+                f.save(filepath)
 
-        # add project files
-        # TODO: get selected images, currently only getting new images
-        project.files = new_project_files
+                # append file to new project files
+                new_project_files.append(project_file)
 
-        # store the project and files
-        db.session.add(project)
-        [db.session.add(p) for p in new_project_files]
+            # add project files
+            # TODO: get selected images, currently only getting new images
+            project.files = new_project_files
 
-        # Commit the changes
-        db.session.commit()
+            tags = form.tags.data
+            print(tags)
+            # store the project and files
+            db.session.add(project)
+            [db.session.add(p) for p in new_project_files]
 
-        flash("Project created successfully")
-        next_page = request.args.get("next")
-        return redirect(next_page) if next_page else redirect(url_for("projects"))
+            # Commit the changes
+            db.session.commit()
+
+            flash("Project created successfully")
+            next_page = request.args.get("next")
+            return redirect(next_page) if next_page else redirect(url_for("projects"))
+        else:
+            print(str(request.form))
 
     return render_template(
         "projects.html",
@@ -74,7 +81,7 @@ def get_project(project_id: int):
 
 
 @app.route("/projects/edit/<int:project_id>/")
-def approve_project(project_id: int):
+def edit_project(project_id: int):
     # Project.query.filter_by(id=project_id).update({"approved": True})
 
     # if current_user.is_authenticated:

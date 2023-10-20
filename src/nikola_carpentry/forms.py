@@ -7,9 +7,12 @@ from wtforms import (
     SelectField,
     BooleanField,
     MultipleFileField,
+    SelectMultipleField,
 )
 from flask_ckeditor import CKEditorField
 from wtforms.validators import DataRequired, InputRequired
+from nikola_carpentry.app import app
+from nikola_carpentry.models import Tag
 
 
 class UserForm(FlaskForm):
@@ -43,7 +46,16 @@ class ContactForm(FlaskForm):
 class ProjectForm(FlaskForm):
     title = StringField("Title", validators=[DataRequired()])
     content = CKEditorField("Content", validators=[DataRequired()])
-    files = MultipleFileField(FileAllowed(["jpg, png"], "Images only!"))
+    files = MultipleFileField()
+    with app.app_context():
+        tag_list: list[Tag] = Tag.query.all()
+        tags = [(tag.tag_name, tag.tag_name) for tag in tag_list]
+
+    tags = SelectMultipleField(
+        "Tags",
+        choices=tags,
+        validators=[InputRequired()],
+    )
     submit = SubmitField("Submit!")
 
 
