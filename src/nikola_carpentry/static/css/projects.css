@@ -1,56 +1,33 @@
-#add-project {
+#header{
     font-size: xx-large;
+    font-weight: bolder;
 }
-
-#project-pane {
-    border: 3px solid blue;
+.bg-image{
+    background-image: url("../img/project-bg.jpg"); 
+    background-size: 100% auto; 
+    background-repeat: repeat-y; 
+}
+.project{
+    width: 90%;
+    margin:auto;
+    background: #fdfdfd;
+    position:relative;    
     border-radius: 5px;
     display: block;
+    margin-top: 1rem;
+    margin-bottom:2rem;
+    padding: 3rem;
 }
+/* .project-img {
+    width: 25%;
+    height: 25%;
+} */
 
-.project {
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    padding: 3% 5% 3% 3%;
-    margin: 1% 0% 1% 0%;
-    border: 3px solid blue;
-    border-radius: 5px;
-    display: block;
-}
-
-.project-title-label {
-    font-size: x-large;
-}
-
-.project-title {
-    font-size: xx-large;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 95%;
-}
-
-.project-content {
-    margin-top: 2%;
-}
-
-.project-date {
-    font-size: x-large;
-}
-
-.project-content {
-    font-size: large;
-}
 
 img:hover {
     box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
 }
 
-img {
-    width: 240px;
-    height: auto;
-}
 
 .project-files {
     display: grid;

@@ -8,6 +8,7 @@ from wtforms import (
     BooleanField,
     MultipleFileField,
     SelectMultipleField,
+    TextAreaField
 )
 from flask_ckeditor import CKEditorField
 from wtforms.validators import DataRequired, InputRequired
@@ -39,7 +40,8 @@ class ContactForm(FlaskForm):
     contact_name = StringField("Name", validators=[DataRequired()])
     email = StringField("Email Address")
     phone = StringField("Phone Number")
-    content = CKEditorField("Write a message", validators=[DataRequired()])
+    content = TextAreaField("Contact Message")
+    # content = CKEditorField("Write a message", validators=[DataRequired()])
     submit = SubmitField("Send contact request!")
 
 
@@ -67,5 +69,6 @@ class ReviewForm(FlaskForm):
         choices=[("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("5", "5")],
         validators=[InputRequired()],
     )
-    content = CKEditorField("Content", validators=[DataRequired()])
+    content = TextAreaField("Review Message")
+    # content = CKEditorField("Content", validators=[DataRequired()])
     submit = SubmitField("Submit!")

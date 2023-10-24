@@ -1,25 +1,27 @@
-input[type=text], select, textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    margin-top: 6px;
-    margin-bottom: 16px;
-    resize: vertical;
-  }
+.bg-image {
+  background-image: url("../img/contact-bg.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100vh;
+}
+
+input[type=text] {
+  padding: 12px;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid black;
+}
 
 label {
-    font-size: larger;
-    font-weight: bolder;
+  font-size: larger;
+  font-weight: bolder;
 }
 
-#contact-form-label{
-    font-size:xx-large;
-    font-weight: bolder;
-}
-
-#contact-form{
-    width: 80%;
-    position:relative;
-    border: 3px solid blue;
-    border-radius: 5px;
+#contact-form {
+  width: 40%;
+  position: relative;
+  background: #f4f4f4;
+  padding: 3rem;
 }

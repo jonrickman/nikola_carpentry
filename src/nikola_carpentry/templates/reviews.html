@@ -13,76 +13,51 @@
 <h2>{{ message }}</h2>
 {% endfor %}
 
-<!-- admin section -->
-{% if user.username %}
-<h1>Review Admin Panel: Welcome {{user.username}}</h1>
+<div class="bg-image">
+  <div id="header" class="d-flex text-center bg-primary text-white py-5">
+    <div class="container">
+      <h1 class="display-4">Reviews</h1>
+    </div>
+  </div>
 
-{% if unapproved_reviews %}
-<div class="container-fluid">
-  <span id="review-count">
-    {{ unapproved_reviews|length }} Unapproved Customer Reviews
-  </span>
+  <!-- admin section -->
+  {% if user.username %}
 
-  {% for review in unapproved_reviews %}
-  {% include 'review.html' %}
-  {% endfor %}
-  <!-- no new reviews -->
-  {% else %}
-  <span id="review-count">
-    No New Unapproved Customer Reviews
-  </span>
-  <!-- end unapproved review section -->
-  {% endif %}
-  <!-- end admin panel section -->
-  {% endif %}
-
-  {% if approved_reviews %}
+  {% if unapproved_reviews %}
   <div class="container-fluid">
     <span id="review-count">
-      {{ approved_reviews|length }} Reviews <br />
-      Average: {{ average_rating }}
+      {{ unapproved_reviews|length }} Unapproved Customer Reviews
     </span>
 
-    {% for review in approved_reviews %}
+    {% for review in unapproved_reviews %}
     {% include 'review.html' %}
     {% endfor %}
+    <!-- no new reviews -->
+    {% else %}
+    <span id="review-count">
+      No New Unapproved Customer Reviews
+    </span>
+    <!-- end unapproved review section -->
+    {% endif %}
+    <!-- end admin panel section -->
+    {% endif %}
 
+    {% if approved_reviews %}
+    <div class="container-fluid">
+      <span id="review-count">
+        {{ approved_reviews|length }} Reviews <br />
+        Average: {{ average_rating }}
+      </span>
+
+      {% for review in approved_reviews %}
+      {% include 'review.html' %}
+      {% endfor %}
+
+    </div>
+    {% else %}
+    {% include 'review-create.html' %}
+    {% endif %}
+
+    {% endblock %}
   </div>
-  {% endif %}
-
-  <div class="container-fluid new-review">
-    <span id="add-review">Add a review</span>
-    <form method="POST">
-      {{ form.hidden_tag()}}
-
-      <div class="row">
-        {{ form.author.label }}
-        {{ form.author }}
-      </div>
-
-
-      <div class="row">
-        {{ form.rating.label }}
-        {{ form.rating(class="form-control") }}
-      </div>
-
-
-      <div class="row">
-        {{ form.title.label }}
-        {{ form.title }}
-      </div>
-
-      {{ form.content() }}
-      {{ ckeditor.load() }}
-      {{ ckeditor.config(name='content') }}
-
-      <div class="row">
-        <input type="file">Select Files
-      </div>
-
-      <div class="row">
-        {{ form.submit(class="btn btn-primary col-sm-5")}}
-      </div>
-    </form>
-  </div>
-  {% endblock %}
+</div>

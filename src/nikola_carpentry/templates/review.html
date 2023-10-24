@@ -1,23 +1,20 @@
 <div class="shadow p-3 mb-5 bg-body rounded review">
 
-  <span class="author">Posted by: {{ review.author }}</span>
-  <span class="rating">Rating: {{ review.rating }} </span>
-  <br />
+  <div class="fs-2 fw-bolder">Posted by: {{ review.author }}</div>
+  <div class="fs-3 fw-bold">Rating: {{ review.rating }} </div>
 
-  <span class="title">Summary: {{ review.title }}</span>
-  <br />
 
-  <span class="post-date">{{ review.pretty_date() }}</span>
-  <br />
+  <div class="fs-3">{{ review.title }}</div>
 
-  <div class="review-text">
-    {{ review.content|safe }}
+
+  <div class="fs-3 fst-italic">{{ review.pretty_date() }}</div>
+
+  <div class="fs-4">
+    {{ review.content }}
   </div>
-  <br />
   {% if user.username %}
   <a href="{{ url_for('approve_review', review_id=review.id)}}"><button>Approve</button></a>
   <a href="{{ url_for('delete_review', review_id=review.id)}}"><button>Delete</button></a>
   {% endif %}
   </form>
 </div>
-<br />

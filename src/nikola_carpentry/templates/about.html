@@ -1,18 +1,18 @@
-{% extends 'base.html' %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}" type="text/css" />
+{% extends "base.html" %}
 
-<!-- Head -->
-{% block head %}
-<title>About</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}" type="text/css" />
-{% endblock %}
-<!--Body-->
+<div>
+  {% for message in get_flashed_messages() %}
+  <h2>{{ message }}</h2>
+  {% endfor %}
+</div>
+
 {% block body %}
 
-{% for message in get_flashed_messages() %}
-<h2>{{ message }}</h2>
-{% endfor %}
-
-About... TODO
-
+<div id="header" class="d-flex text-center bg-primary text-white py-5">
+  <div class="container">
+    <h1 class="display-4">About</h1>
+  </div>
+</div>
 
 {% endblock %}

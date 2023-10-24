@@ -1,0 +1,40 @@
+<div class="container-fluid project">
+    <span class="fs-1">Add a project</span>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag()}}
+
+        <div class="form-group">
+            {{ form.title(class="form-control form-control-lg", placeholder="Project Title") }}
+        </div>
+
+        {{ form.content() }}
+        {{ ckeditor.load() }}
+        {{ ckeditor.config(name='content') }}
+
+
+        <div class="form-group">
+            {{ form.tags(class="w-100") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.files(class="w-100")  }}
+        </div>
+
+        <!-- TODO: this needs cleanup -->
+        <div class="scroll-container">
+            <div class="grid-container">
+                {% for project_file in project_files %}
+                <div class="grid-item scroll-content">
+                    <img src="{{ url_for('static', filename=project_file) }}" alt="{{ project_file.name }}" class="img-thumbnail">
+                    <div class="overlay">
+                        <input type="checkbox" name="selected_images" value="{{ project_file.id }}">
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary col-sm-5")}}
+        </div>
+
+    </form>

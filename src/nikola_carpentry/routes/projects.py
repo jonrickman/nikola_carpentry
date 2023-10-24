@@ -9,10 +9,9 @@ from werkzeug.utils import secure_filename
 def projects():
     ready_projects = Project.query.filter().all()
     project_files = ProjectFile.query.filter().all()
-
+    tags = Tag.query.all()
     form = ProjectForm()
 
-    [print(f"key: {p} | data: {form.data[p]}") for p in form.data]
     if request.method == "POST":
         if form.validate_on_submit():
             # create the project item
@@ -61,8 +60,6 @@ def projects():
             flash("Project created successfully")
             next_page = request.args.get("next")
             return redirect(next_page) if next_page else redirect(url_for("projects"))
-        else:
-            print(str(request.form))
 
     return render_template(
         "projects.html",
@@ -70,6 +67,7 @@ def projects():
         project_files=project_files,
         ready_projects=ready_projects,
         form=form,
+        tags=tags
     )
 
 

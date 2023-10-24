@@ -13,18 +13,19 @@
 {% endfor %}
 
 {% if form.errors %}
-    {{ form.errors }}
+{{ form.errors }}
 {% endif %}
 
-<div class="container">
-
-  <div class="mt-4 p-5 bg-primary text-white rounded">
-    <h1>Custom Projects</h1>
+<div class="bg-image">
+  <div id="header" class="d-flex text-center bg-primary text-white py-5">
+    <div class="container">
+      <h1 class="display-4">Custom Projects</h1>
+    </div>
   </div>
+
 
   {% if ready_projects %}
   <div id="project-pane" class="container-fluid">
-
     {% for project in ready_projects %}
     {% include 'project.html' %}
     {% endfor %}
@@ -32,53 +33,8 @@
     {% endif %}
 
     {% if user.username %}
-    <div class="container-fluid project">
-      <span id="add-project">Add a project</span>
-      <form method="POST" enctype="multipart/form-data">
-        {{ form.hidden_tag()}}
-
-        <div class="row">
-          {{ form.title.label(class="project-title-label") }}
-          {{ form.title(class="project-title") }}
-        </div>
-
-        <div class="project-content">
-          {{ form.content.label}}
-          {{ form.content() }}
-          {{ ckeditor.load() }}
-          {{ ckeditor.config(name='content') }}
-        </div>
-
-        <div class="row">
-          {{ form.tags.label }}
-          {{ form.tags }}
-        </div>
-
-        <div class="row">
-          {{ form.files }}
-        </div>
-
-        <!-- TODO: this needs cleanup -->
-        <div class="scroll-container">
-          <div class="grid-container">
-            {% for project_file in project_files %}
-            <div class="grid-item scroll-content">
-              <img src="{{ url_for('static', filename=project_file) }}" alt="{{ project_file.name }}">
-              <div class="overlay">
-                <input type="checkbox" name="selected_images" value="{{ project_file.id }}">
-              </div>
-            </div>
-            {% endfor %}
-          </div>
-        </div>
-
-        <div class="row">
-          {{ form.submit(class="btn btn-primary col-sm-5")}}
-        </div>
-
-      </form>
-      {% endif %}
-    </div>
+    {% include "project-create.html" %}
+    {% endif %}
   </div>
 </div>
 

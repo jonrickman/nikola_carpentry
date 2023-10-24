@@ -167,8 +167,10 @@ cython_debug/
 dev.py
 # static image uploads... don't create these
 **/static/*.png 
+**/static/*.jpg
 # editor settings not actual config settings
 settings.json
 # prod config
 **/config.py
 src/nikola_carpentry/config.py
+.vscode
