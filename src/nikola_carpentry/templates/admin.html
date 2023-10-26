@@ -4,20 +4,38 @@
 {% block head %}
 <title>Admin Panel</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}" type="text/css" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/reviews.css') }}" type="text/css" />
+
 {% endblock %}
 <!--Body-->
 {% block body %}
 
-{% for message in get_flashed_messages() %}
-<h2>{{ message }}</h2>
-{% endfor %}
 
-<!-- admin section -->
-<h1>Review Admin Panel: Welcome {{user.username}}</h1>
+<div id="header" class="d-flex text-center bg-primary text-white py-5">
+    <div class="container">
+        <h1 class="display-4">Admin Station</h1>
+    </div>
+</div>
 
+{% include 'admin_nav.html' %}
 
+{% include 'error-modal.html' %}
 
-{% include 'users.html' %}
-{% include 'tags.html' %}
-
+{% if unapproved_reviews %}
+<div id="review-pane" class="container-fluid my-5 pane">
+    <div class="md-4 fs-1 text-center fw-bolder w-100">
+        {{ unapproved_reviews|length }} Unapproved Customer Reviews
+    </div>
+    
+    {% for review in unapproved_reviews %}
+    {% include 'review.html' %}
+    {% endfor %}
+    <!-- no new reviews -->
+    {% else %}
+    <span id="review-count">
+        No New Unapproved Customer Reviews
+    </span>
+    <!-- end unapproved review section -->
+    {% endif %}
+</div>
 {% endblock %}

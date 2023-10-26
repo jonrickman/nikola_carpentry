@@ -6,8 +6,8 @@ from werkzeug.utils import secure_filename
 
 
 @app.route("/projects", methods=["GET", "POST"])
-def projects():
-    ready_projects = Project.query.filter().all()
+def project_home():
+    projects = Project.query.filter().all()
     project_files = ProjectFile.query.filter().all()
     tags = Tag.query.all()
     form = ProjectForm()
@@ -47,8 +47,10 @@ def projects():
 
             # get the project tags
             form_tags = form.tags.data
+            print(f"{form_tags=}")
             tags = [Tag.query.filter_by(tag_name=t).first() for t in form_tags]
             project.tags = tags
+            print(f"{project.tags=}")
 
             # store the project and files
             db.session.add(project)
@@ -65,10 +67,19 @@ def projects():
         "projects.html",
         user=current_user,
         project_files=project_files,
-        ready_projects=ready_projects,
+        projects=projects,
         form=form,
         tags=tags
     )
+
+
+@app.route("/projects/search")
+def search_projects():
+    query = request.args.get('query')
+    projects = Project.query.filter(Project.content.icontains(query)).all()
+    return render_template('project-pane.html', projects=projects)
+    # filtered = [render_template('project.html', project=p) for p in projects if query in p.content]
+
 
 
 @app.route("/projects/<int:project_id>/")

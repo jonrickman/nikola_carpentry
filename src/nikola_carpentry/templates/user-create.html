@@ -1,0 +1,23 @@
+
+<div id="user-form" class="container-fluid">
+    <div class="md-4 fs-1 text-center fw-bolder w-100">Create a User</div>
+    <form method="POST">
+        {{ form.hidden_tag()}}
+
+        <div class="form-group">
+            {{ form.username(class="form-control form-control-lg", placeholder="user") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.email(class="form-control form-control-lg", placeholder="you@example.com") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.password(class="form-control form-control-lg", placeholder="password") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.submit(class="offset-md-7 my-3 btn btn-primary align-right col-sm-5")}}
+        </div>
+    </form>
+</div>

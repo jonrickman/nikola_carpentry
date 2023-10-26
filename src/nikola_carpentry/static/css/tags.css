@@ -1,0 +1,13 @@
+#tag-form {
+    width: 40%;
+    position: relative;
+    background: #f1f1f1;
+    padding: 3rem;
+}
+
+#tag-pane {
+    width: 90%;
+    position: relative;
+    background: #f4f4f4;
+    margin: auto;
+}

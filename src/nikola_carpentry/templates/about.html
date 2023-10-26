@@ -1,11 +1,6 @@
-<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}" type="text/css" />
 {% extends "base.html" %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}" type="text/css" />
 
-<div>
-  {% for message in get_flashed_messages() %}
-  <h2>{{ message }}</h2>
-  {% endfor %}
-</div>
 
 {% block body %}
 
@@ -14,5 +9,7 @@
     <h1 class="display-4">About</h1>
   </div>
 </div>
+
+{% include 'error-modal.html' %}
 
 {% endblock %}

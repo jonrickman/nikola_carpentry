@@ -4,38 +4,33 @@
 {% block head %}
 <title>Projects</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/projects.css') }}" type="text/css" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+<script src="https://unpkg.com/htmx.org@1.9.4"></script>
 {% endblock %}
 <!--Body-->
 {% block body %}
 
-{% for message in get_flashed_messages() %}
-<h2>{{ message }}</h2>
-{% endfor %}
-
-{% if form.errors %}
-{{ form.errors }}
-{% endif %}
 
 <div class="bg-image">
   <div id="header" class="d-flex text-center bg-primary text-white py-5">
     <div class="container">
-      <h1 class="display-4">Custom Projects</h1>
+      <h1 class="display-4">Reviews</h1>
     </div>
   </div>
 
+  {% include 'error-modal.html' %}
 
-  {% if ready_projects %}
-  <div id="project-pane" class="container-fluid">
-    {% for project in ready_projects %}
-    {% include 'project.html' %}
-    {% endfor %}
-    <!-- end of project-pane -->
-    {% endif %}
+  <input type="text" class="input" placeholder="Search" name="query" hx-get="/projects/search"
+    hx-trigger="keyup changed delay:500ms" hx-target="#project-pane">
 
-    {% if user.username %}
-    {% include "project-create.html" %}
-    {% endif %}
-  </div>
+  {% include 'project-pane.html' %}
+
+
+
+  {% if user.is_authenticated %}
+  {% include "project-create.html" %}
+  {% endif %}
 </div>
 
 {% endblock %}

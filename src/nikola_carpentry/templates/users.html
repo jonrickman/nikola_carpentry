@@ -1,42 +1,45 @@
-<table class="table table-dark table-hover">
-    <thead>
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email Address</th>
-            <th scope="col">Created</th>
-            <th scope="col">Last Login</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for user in users %}
-        {% include 'user.html' %}
-        {% endfor %}
-    </tbody>
-</table>
+{% extends 'base.html' %}
 
-<div class="container-fluid new-user">
-    <span id="add-review">Add a user</span>
-    <form method="POST">
-        {{ user_form.hidden_tag()}}
+<!-- Head -->
+{% block head %}
+<title>Projects</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/users.css') }}" type="text/css" />
+{% endblock %}
+<!--Body-->
+{% block body %}
 
-        <div class="row">
-            {{ user_form.username.label }}
-            {{ user_form.username }}
+
+<div class="bg-image">
+    <div id="header" class="d-flex text-center bg-primary text-white py-5">
+        <div class="container">
+            <h1 class="display-4">Users</h1>
         </div>
+    </div>
 
-        <div class="row">
-            {{ user_form.email.label }}
-            {{ user_form.email }}
-        </div>
+    {% include 'admin_nav.html' %}
 
-        <div class="row">
-            {{ user_form.password.label }}
-            {{ user_form.password(type="password") }}
-        </div>
+    {% include 'error-modal.html' %}
 
-        <div class="row">
-            {{ user_form.submit(class="btn btn-primary col-sm-5")}}
-        </div>
-    </form>
+    <div id="user-pane" class="container-fluid my-5 pane">
+        <div class="md-4 fs-1 text-center fw-bolder w-100">Users</div>
+        <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email Address</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Last Login</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                {% include 'user.html' %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% include 'user-create.html' %}
+    </div>
 </div>
+{% endblock %}

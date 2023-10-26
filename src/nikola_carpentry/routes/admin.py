@@ -4,76 +4,28 @@ from flask_httpauth import HTTPBasicAuth
 from datetime import datetime
 from werkzeug.security import check_password_hash
 from nikola_carpentry import app, db, LoginForm, UserForm, TagForm
-from nikola_carpentry.models import AdminUser, Tag
+from nikola_carpentry.models import AdminUser, Tag, Review
 
 basicAuth = HTTPBasicAuth()
 
 
-@app.route("/")
-def home():
-    return render_template("index.html")
-
-
-@app.route("/about")
-def about():
-    return render_template("about.html")
-
-
 @login_required
-@app.route("/admin", methods=["GET", "POST"])
-def admin_home():
-    # TODO: Cleanup this method...
-    if not current_user.is_authenticated:
-        return render_template("403.html")
-
-    user_form = UserForm()
-    tag_form = TagForm()
-    users = AdminUser.query.filter().all()
+@app.route("/tags", methods=["GET", "POST"])
+def tag_home():
+    form = TagForm()
     tags = Tag.query.filter().all()
-
-    if user_form.validate_on_submit():
-        form_username = user_form.username.data.lower()
-        form_email = user_form.email.data.lower()
-
-        # see if user exists with given username
-        user: AdminUser = AdminUser.query.filter_by(username=form_username).first()
-        if user:
-            # if user exists, flash error and return
-            flash(f"User with {form_username} already exists", "danger")
-            return render_template(
-                "admin.html",
-                tag_form=tag_form,
-                user_form=user_form,
-                user=current_user,
-                users=users,
-                tags=tags,
-            )
-        # otherwise create the user
-        user = AdminUser(
-            username=form_username, password=user_form.password.data, email=form_email
-        )
-        with app.app_context():
-            db.session.add(user)
-            db.session.commit()
-
-        # flash the message and return
-        flash("User created succesfully")
-        return redirect(url_for("admin_home"))
-
-    if tag_form.validate_on_submit():
-        form_tag_name = tag_form.tag_name.data.lower()
+    if form.validate_on_submit():
+        form_tag_name = form.tag_name.data.lower()
 
         tag: Tag = Tag.query.filter_by(tag_name=form_tag_name).first()
-        # see if user exists with given username
+        # see if tag exists with given username
         if tag:
-            # if user exists, flash error and return
+            # if tag exists, flash error and return
             flash(f"Tag with {form_tag_name} already exists", "danger")
             return render_template(
-                "admin.html",
-                tag_form=tag_form,
-                user_form=user_form,
+                "tags.html",
+                form=form,
                 user=current_user,
-                users=users,
                 tags=tags,
             )
 
@@ -84,16 +36,66 @@ def admin_home():
             db.session.commit()
 
         # flash the message and return
+        flash("Tag created succesfully")
+        return redirect(url_for("tag_home"))
+    
+    return render_template(
+        "tags.html",
+        form=form,
+        user=current_user,
+        tags=tags,
+    )
+
+
+@login_required
+@app.route("/users", methods=["GET", "POST"])
+def user_home():
+    form = UserForm()
+    users = AdminUser.query.filter().all()
+
+    if form.validate_on_submit():
+        form_username = form.username.data.lower()
+        form_email = form.email.data.lower()
+
+        # see if user exists with given username
+        user: AdminUser = AdminUser.query.filter_by(username=form_username).first()
+        if user:
+            # if user exists, flash error and return
+            flash(f"User with {form_username} already exists", "danger")
+            return render_template(
+                "users.html", form=form, user=current_user, users=users
+            )
+        # otherwise create the user
+        user = AdminUser(
+            username=form_username, password=form.password.data, email=form_email
+        )
+        with app.app_context():
+            db.session.add(user)
+            db.session.commit()
+
+        # flash the message and return
         flash("User created succesfully")
-        return redirect(url_for("admin_home"))
+        return redirect(url_for("users"))
 
     return render_template(
-        "admin.html",
-        tag_form=tag_form,
-        user_form=user_form,
+        "users.html",
+        form=form,
         user=current_user,
         users=users,
-        tags=tags,
+    )
+
+
+@login_required
+@app.route("/admin", methods=["GET", "POST"])
+def admin_home():
+    # TODO: Cleanup this method...
+    if not current_user.is_authenticated:
+        return render_template("403.html")
+
+    unapproved_reviews = Review.query.filter_by(approved=False).all()
+    print(unapproved_reviews)
+    return render_template(
+        "admin.html", user=current_user, unapproved_reviews=unapproved_reviews
     )
 
 

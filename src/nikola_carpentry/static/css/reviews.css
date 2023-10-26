@@ -1,35 +1,27 @@
-.bg-image {
-    background-image: url("../img/contact-bg.jpg");
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    height: 100vh;
-}
 
-label {
-    font-size: larger;
-    font-weight: bolder;
-}
-
-input[type=text] {
-    padding: 12px;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-    border-bottom: 2px solid black;
-}
-
-.review {
-    background: #f4f4f4;
+.review{
+    width: 90%;
+    margin:auto;
+    background: #fdfdfd;
+    position:relative;    
     border-radius: 5px;
     display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 90%;
+    margin-top: 1rem;
+    margin-bottom:2rem;
+    padding: 3rem;
 }
 
 #review-form {
+    width: 40%;
+    position: relative;
+    background: #f1f1f1;
+    padding: 3rem;
+}
+
+#review-pane {
+    width: 90%;
     position: relative;
     background: #f4f4f4;
-    padding: 3rem;
+    margin: auto;
+    padding-bottom: 3rem;
 }

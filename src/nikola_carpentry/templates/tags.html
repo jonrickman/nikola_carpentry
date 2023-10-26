@@ -1,29 +1,44 @@
-<table class="table table-dark table-hover">
-    <thead>
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Name</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for tag in tags %}
-        {% include 'tag.html' %}
-        {% endfor %}
-    </tbody>
-</table>
+{% extends 'base.html' %}
 
-<div class="container-fluid new-tag">
-    <span id="add-review">Add a tag</span>
-    <form method="POST">
-        {{ tag_form.hidden_tag()}}
+<!-- Head -->
+{% block head %}
+<title>Projects</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tags.css') }}" type="text/css" />
+{% endblock %}
+<!--Body-->
+{% block body %}
 
-        <div class="row">
-            {{ tag_form.tag_name.label }}
-            {{ tag_form.tag_name }}
+
+<div class="bg-image">
+    <div id="header" class="d-flex text-center bg-primary text-white py-5">
+        <div class="container">
+            <h1 class="display-4">Tags</h1>
         </div>
+    </div>
 
-        <div class="row">
-            {{ tag_form.submit(class="btn btn-primary col-sm-5")}}
-        </div>
-    </form>
+    
+    {% include 'admin_nav.html' %}
+    
+    {% include 'error-modal.html' %}
+
+    <div id="tag-pane" class="container-fluid my-5 pane">
+        <div class="md-4 fs-1 text-center fw-bolder w-100">Tags</div>
+        <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tag in tags %}
+                {% include 'tag.html' %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+        {% include 'tag-create.html' %}
+    </div>
 </div>
+{% endblock %}

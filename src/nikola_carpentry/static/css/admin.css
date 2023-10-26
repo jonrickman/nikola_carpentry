@@ -1,23 +1,6 @@
-.user {
-        border: 3px solid aqua;
-        border-radius: 5px;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 60%;
-        padding-left: 15%;
-        padding-right: 15%;
-    
-}
-.new-user {  
-    border: 3px solid aqua;
-    border-radius: 5px;
-    display: block;
-    padding-bottom: 5%;
-    margin-top: 4%;
-    padding-left: 10%;
-    padding-right: 10%;
-    margin-left: auto;
-    margin-right: auto;
-    width: 60%;
+#review-pane {
+    width: 90%;
+    position: relative;
+    background: #f4f4f4;
+    margin: auto;
 }

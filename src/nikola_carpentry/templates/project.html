@@ -36,7 +36,7 @@
     {% endif %}
 
     <br />
-    {% if user.username %}
+    {% if user %}
     <a href="{{ url_for('edit_project', project_id=project.id)}}"><button
             class="btn btn-primary col-sm-5">Edit</button></a>
     <a href="{{ url_for('delete_project', project_id=project.id)}}"><button

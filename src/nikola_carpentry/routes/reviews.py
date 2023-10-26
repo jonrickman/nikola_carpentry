@@ -8,7 +8,6 @@ from nikola_carpentry.models import Review
 @app.route("/reviews", methods=["GET", "POST"])
 def reviews():
     approved_reviews = Review.query.filter_by(approved=True).all()
-    unapproved_reviews = Review.query.filter_by(approved=False).all()
 
     average_rating = 5
 
@@ -33,7 +32,6 @@ def reviews():
         "reviews.html",
         user=current_user,
         approved_reviews=approved_reviews,
-        unapproved_reviews=unapproved_reviews,
         form=form,
         average_rating=average_rating
     )

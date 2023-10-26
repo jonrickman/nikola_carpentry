@@ -1,11 +1,12 @@
-#header{
-    font-size: xx-large;
-    font-weight: bolder;
-}
 .bg-image{
     background-image: url("../img/project-bg.jpg"); 
     background-size: 100% auto; 
     background-repeat: repeat-y; 
+    min-height: 100vh;
+}
+#header{
+    font-size: xx-large;
+    font-weight: bolder;
 }
 .project{
     width: 90%;
@@ -18,11 +19,6 @@
     margin-bottom:2rem;
     padding: 3rem;
 }
-/* .project-img {
-    width: 25%;
-    height: 25%;
-} */
-
 
 img:hover {
     box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);

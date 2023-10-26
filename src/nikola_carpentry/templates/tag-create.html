@@ -1,0 +1,14 @@
+<div id="tag-form" class="container-fluid my-5">
+    <div class="md-4 fs-1 text-center fw-bolder w-100">Create a Tag</div>
+    <form method="POST">
+        {{ form.hidden_tag()}}
+
+        <div class="form-group">
+            {{ form.tag_name(class="form-control form-control-lg", placeholder="Lawn & Garden") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.submit(class="offset-md-7 my-3 btn btn-primary align-right col-sm-5")}}
+        </div>
+    </form>
+</div>

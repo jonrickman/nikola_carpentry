@@ -1,0 +1,8 @@
+{% if projects %}
+<div id="project-pane" class="container-fluid">
+  {% for project in projects %}
+  {% include 'project.html' %}
+  {% endfor %}
+  <!-- end of project-pane -->
+  {% endif %}
+</div>
