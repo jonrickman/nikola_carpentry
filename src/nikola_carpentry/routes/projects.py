@@ -9,7 +9,7 @@ from werkzeug.utils import secure_filename
 def project_home():
     projects = Project.query.filter().all()
     project_files = ProjectFile.query.filter().all()
-    tags = Tag.query.all()
+    tags = Tag.query.filter().all()
     form = ProjectForm()
 
     if request.method == "POST":
@@ -47,10 +47,8 @@ def project_home():
 
             # get the project tags
             form_tags = form.tags.data
-            print(f"{form_tags=}")
             tags = [Tag.query.filter_by(tag_name=t).first() for t in form_tags]
             project.tags = tags
-            print(f"{project.tags=}")
 
             # store the project and files
             db.session.add(project)
@@ -61,7 +59,9 @@ def project_home():
 
             flash("Project created successfully")
             next_page = request.args.get("next")
-            return redirect(next_page) if next_page else redirect(url_for("projects"))
+            return (
+                redirect(next_page) if next_page else redirect(url_for("project_home"))
+            )
 
     return render_template(
         "projects.html",
@@ -69,17 +69,21 @@ def project_home():
         project_files=project_files,
         projects=projects,
         form=form,
-        tags=tags
+        tags=tags,
     )
 
 
 @app.route("/projects/search")
 def search_projects():
-    query = request.args.get('query')
+    query = request.args.get("query")
     projects = Project.query.filter(Project.content.icontains(query)).all()
-    return render_template('project-pane.html', projects=projects)
-    # filtered = [render_template('project.html', project=p) for p in projects if query in p.content]
+    return render_template("project-pane.html", projects=projects)
 
+
+@app.route("/projects/filter/<int:id>")
+def filter_projects(id: int):
+    projects = Project.query.join(Tag.projects).filter(Tag.id == id).all()
+    return render_template("project-pane.html", projects=projects)
 
 
 @app.route("/projects/<int:project_id>/")
@@ -94,18 +98,17 @@ def get_project(project_id: int):
 
 @app.route("/projects/edit/<int:project_id>/")
 def edit_project(project_id: int):
-
+    if not current_user.is_authenticated:
+        return redirect(url_for("HTTP403"))
     return "Not Implemented"
 
 
-@app.route("/projects/view/<int:project_id>/")
+@app.route("/projects/delete/<int:project_id>/")
 def delete_project(project_id: int):
     if not current_user.is_authenticated:
-        return url_for("forbidden", msg="Please log in to delete projects")
+        return redirect(url_for("HTTP404"))
 
     Project.query.filter_by(id=project_id).delete()
 
     db.session.commit()
-    return redirect(url_for("projects"))
-
-
+    return redirect(url_for("project_home"))
