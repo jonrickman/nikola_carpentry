@@ -25,3 +25,15 @@
     margin: auto;
     padding-bottom: 3rem;
 }
+
+.stars {
+    display: inline-block;
+}
+
+.star, .filter-star {
+    cursor: pointer;
+}
+
+.star.active {
+    color: gold;
+}

@@ -16,24 +16,37 @@
       <h1 class="display-4">Reviews</h1>
     </div>
   </div>
-  
+
   {% include 'error-modal.html' %}
-  
-  {% if approved_reviews %}
-  <div id="review-pane" class="container-fluid my-5 pane">
-    <div class="md-4 fs-1 text-center fw-bolder w-100">
-      {{ approved_reviews|length }} Reviews <br />
-      Average: {{ average_rating }}
-    </div>
 
-    {% for review in approved_reviews %}
-    {% include 'review.html' %}
-    {% endfor %}
-
+  <div class="text-center fs-3">
+    <span>
+      Sort reviews <br />
+    </span>
+    <input type="button" class="filter-star btn btn-secondary" value="*" hx-get="/reviews/filter/1" hx-trigger="click" hx-target="#review-pane">
+    <input type="button" class="filter-star btn btn-secondary" value="*" hx-get="/reviews/filter/2" hx-trigger="click" hx-target="#review-pane">
+    <input type="button" class="filter-star btn btn-secondary" value="*" hx-get="/reviews/filter/3" hx-trigger="click" hx-target="#review-pane">
+    <input type="button" class="filter-star btn btn-secondary" value="*" hx-get="/reviews/filter/4" hx-trigger="click" hx-target="#review-pane">
+    <input type="button" class="filter-star btn btn-secondary" value="*" hx-get="/reviews/filter/5" hx-trigger="click" hx-target="#review-pane">
+    <input type="button" class="btn btn-primary" value="clear" hx-get="/reviews/filter/0" hx-trigger="click"
+      hx-target="#review-pane">
   </div>
+
+  {% if reviews %}
+  {% include 'review-pane.html' %}
   {% endif %}
+
   {% include 'review-create.html' %}
 
   {% endblock %}
+
 </div>
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"> </script>
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"> </script>
+<script src="{{ url_for('static', filename='js/reviews.js') }}"></script>
+<script src="https://unpkg.com/htmx.org@1.9.4"></script>
+
+{% endblock %}
 </div>

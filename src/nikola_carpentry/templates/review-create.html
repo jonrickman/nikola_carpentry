@@ -1,30 +1,37 @@
-
 <div id="review-form" class="container-fluid my-5">
-    <div class="md-4 fs-1 text-center fw-bolder w-100">Review Us</div>
-    <form method="POST">
-      {{ form.hidden_tag()}}
+  <div class="md-4 fs-1 text-center fw-bolder w-100">Review Us</div>
+  <form method="POST">
+    {{ form.hidden_tag()}}
 
-      <div class="form-group">
-        {{ form.author(class="form-control form-control-lg", placeholder="Name") }}
-      </div>
-
-
-      <div class="form-group">
-        {{ form.rating(class="form-control form-control-lg") }}
-      </div>
+    <div class="form-group">
+      {{ form.author(class="form-control form-control-lg", placeholder="Name") }}
+    </div>
 
 
-      <div class="form-group">
-        {{ form.title(class="form-control form-control-lg", placeholder="Title") }}
-      </div>
+    <div class="form-group">
+      {{ form.rating.label }}
+      <!-- Hide the rating  -->
+      {{ form.rating(class="d-none") }}
+      <div class="stars" >
+        <span class="star" data-value="1">★</span>
+        <span class="star" data-value="2">★</span>
+        <span class="star" data-value="3">★</span>
+        <span class="star" data-value="4">★</span>
+        <span class="star" data-value="5">★</span>
+      </div> 
+    </div>
 
-      <div class="form-group">
-        {{ form.content(rows=8, class="form-control form-control-lg", placeholder="Begin your message") }}
-      </div>
 
-      <div class="form-group">
-        {{ form.submit(class="offset-md-7 my-3 btn btn-primary align-right col-sm-5")}}
-      </div>
-    </form>
-  </div>
-  
+    <div class="form-group">
+      {{ form.title(class="form-control form-control-lg", placeholder="Title") }}
+    </div>
+
+    <div class="form-group">
+      {{ form.content(rows=8, class="form-control form-control-lg", placeholder="Begin your message") }}
+    </div>
+
+    <div class="form-group">
+      {{ form.submit(class="offset-md-7 my-3 btn btn-primary align-right col-sm-5")}}
+    </div>
+  </form>
+</div>

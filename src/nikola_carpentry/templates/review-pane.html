@@ -1,0 +1,13 @@
+<div id="review-pane" class="container-fluid my-5 pane">
+    <div class="md-4 fs-1 text-center fw-bolder w-100">
+      {{ reviews|length }} Reviews <br />
+      {% if average_rating %}
+      Average: {{ average_rating }}
+      {% endif %}
+    </div>
+
+    {% for review in reviews %}
+    {% include 'review.html' %}
+    {% endfor %}
+
+  </div>

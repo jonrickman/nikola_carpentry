@@ -6,19 +6,22 @@ from nikola_carpentry.models import Review
 
 
 @app.route("/reviews", methods=["GET", "POST"])
-def reviews():
-    approved_reviews = Review.query.filter_by(approved=True).all()
+def review_home():
+    reviews = Review.query.filter_by(approved=True).all()
 
     average_rating = 5
 
-    if len(approved_reviews) > 0:
-        average_rating = round(sum([r.rating for r in approved_reviews]) / len(approved_reviews), 2)
+    if len(reviews) > 0:
+        average_rating = round(sum([r.rating for r in reviews]) / len(reviews), 2)
 
     form = ReviewForm()
 
     if form.validate_on_submit():
         review = Review(
-            author=form.author.data, rating=form.rating.data, title=form.title.data, content=form.content.data
+            author=form.author.data,
+            rating=form.rating.data,
+            title=form.title.data,
+            content=form.content.data,
         )
 
         with app.app_context():
@@ -26,14 +29,14 @@ def reviews():
 
         flash("Review created successfully. Review must be approved before it appears.")
         next_page = request.args.get("next")
-        return redirect(next_page) if next_page else redirect(url_for("reviews"))
+        return redirect(next_page) if next_page else redirect(url_for("review_home"))
 
     return render_template(
         "reviews.html",
         user=current_user,
-        approved_reviews=approved_reviews,
+        reviews=reviews,
         form=form,
-        average_rating=average_rating
+        average_rating=average_rating,
     )
 
 
@@ -45,13 +48,23 @@ def get_review(review_id: int):
     return render_template("review.html", user=current_user, form=form, review=review)
 
 
+@app.route("/reviews/filter/<int:rating>")
+def filter_reviews(rating: int):
+    if rating:
+        reviews = Review.query.filter(Review.rating == rating).all()
+        return render_template("review-pane.html", reviews=reviews)
+
+    reviews = Review.query.filter().all()
+    return render_template("review-pane.html", reviews=reviews)
+
+
 @app.route("/reviews/approve/<int:review_id>/")
 def approve_review(review_id: int):
     Review.query.filter_by(id=review_id).update({"approved": True})
 
     if current_user.is_authenticated:
         db.session.commit()
-        return redirect(url_for("reviews"))
+        return redirect(url_for("review_home"))
 
     return "Nope"
 
@@ -62,6 +75,6 @@ def delete_review(review_id: int):
 
     if current_user.is_authenticated:
         db.session.commit()
-        return redirect(url_for("reviews"))
+        return redirect(url_for("review_home"))
 
     return "Nope"

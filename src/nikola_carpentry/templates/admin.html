@@ -28,13 +28,13 @@
     </div>
     
     {% for review in unapproved_reviews %}
-    {% include 'review.html' %}
+    {% include 'review-admin-view.html' %}
     {% endfor %}
     <!-- no new reviews -->
     {% else %}
-    <span id="review-count">
+    <div class="fs-2 text-center fw-bold w-100">
         No New Unapproved Customer Reviews
-    </span>
+    </div>
     <!-- end unapproved review section -->
     {% endif %}
 </div>

@@ -1,14 +1,14 @@
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileAllowed  # TODO: Not working as intended
+# from flask_wtf.file import FileAllowed  # TODO: Not working as intended
 from wtforms import (
     StringField,
     SubmitField,
     PasswordField,
-    SelectField,
+    IntegerField,
     BooleanField,
     MultipleFileField,
     SelectMultipleField,
-    TextAreaField
+    TextAreaField,
 )
 from flask_ckeditor import CKEditorField
 from wtforms.validators import DataRequired, InputRequired
@@ -64,11 +64,7 @@ class ProjectForm(FlaskForm):
 class ReviewForm(FlaskForm):
     author = StringField("Name")
     title = StringField("Title", validators=[DataRequired()])
-    rating = SelectField(
-        "Rating",
-        choices=[("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("5", "5")],
-        validators=[InputRequired()],
-    )
+    rating = IntegerField("Rating")
     content = TextAreaField("Review Message")
     # content = CKEditorField("Content", validators=[DataRequired()])
     submit = SubmitField("Submit!")

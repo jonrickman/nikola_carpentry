@@ -76,7 +76,9 @@ def project_home():
 @app.route("/projects/search")
 def search_projects():
     query = request.args.get("query")
-    projects = Project.query.filter(Project.content.icontains(query)).all()
+    projects = Project.query.filter(
+        Project.content.icontains(query) | Project.title.icontains(query)
+    ).all()
     return render_template("project-pane.html", projects=projects)
 
 

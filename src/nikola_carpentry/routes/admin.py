@@ -38,7 +38,7 @@ def tag_home():
         # flash the message and return
         flash("Tag created succesfully")
         return redirect(url_for("tag_home"))
-    
+
     return render_template(
         "tags.html",
         form=form,
