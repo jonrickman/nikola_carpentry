@@ -1,5 +1,5 @@
 import json
-from nikola_carpentry import db, login_manager, app
+from nikola_carpentry import db, login_manager
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 from sqlalchemy import DateTime, Column, String, Integer, Boolean, ForeignKey
@@ -165,11 +165,3 @@ project_x_file = db.Table(
     extend_existing=True,
 )
 
-if __name__ == "__main__":
-    # Run this file directly to create the database tables.
-    print("Creating database tables...")
-    with app.app_context():
-        db.drop_all()
-        db.create_all()
-
-    print("Done!")

@@ -1,2 +1,0 @@
-python3 src/nikola_carpentry/models.py && python3 src/nikola_carpentry/dev.py;
-python3 src/nikola_carpentry/app.py
