@@ -1,9 +1,11 @@
 import json
-from nikola_carpentry import db, login_manager
+
 from flask_login import UserMixin
+from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String
 from sqlalchemy.sql import func
-from sqlalchemy import DateTime, Column, String, Integer, Boolean, ForeignKey
 from werkzeug.security import generate_password_hash
+
+from nikola_carpentry import db, login_manager
 
 
 @login_manager.user_loader
@@ -164,4 +166,3 @@ project_x_file = db.Table(
     Column("project_id", Integer, ForeignKey("project.id"), primary_key=True),
     extend_existing=True,
 )
-

@@ -1,4 +1,5 @@
-from flask import render_template, flash
+from flask import flash, render_template
+
 from nikola_carpentry import app
 
 

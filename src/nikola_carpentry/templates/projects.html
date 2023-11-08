@@ -9,7 +9,6 @@
 <!--Body-->
 {% block body %}
 
-
 <div class="bg-image">
   <div id="header" class="d-flex text-center bg-primary text-white py-5">
     <div class="container">
@@ -21,24 +20,32 @@
 
   <div class="bg-primary">
     <div class="row">
-      <input type="text" class="" placeholder="Search" name="query" hx-get="/projects/search"
-        hx-trigger="keyup changed delay:500ms" hx-target="#project-pane">
+      <input
+        type="text"
+        class="py-4"
+        placeholder="Search"
+        name="query"
+        hx-get="/projects/search"
+        hx-trigger="keyup changed delay:500ms"
+        hx-target="#project-pane"
+      />
     </div>
     <div>
       {% for tag in tags %}
 
-      <input type="button" class="btn btn-secondary" value="{{ tag.tag_name }}" hx-get="/projects/filter/{{ tag.id }}"
-        hx-trigger="click" hx-target="#project-pane">
+      <input
+        type="button"
+        class="btn btn-secondary"
+        value="{{ tag.tag_name }}"
+        hx-get="/projects/filter/{{ tag.id }}"
+        hx-trigger="click"
+        hx-target="#project-pane"
+      />
 
       {% endfor %}
     </div>
   </div>
-  {% include 'project-pane.html' %}
-
-
-  {% if user.is_authenticated %}
-  {% include "project-create.html" %}
-  {% endif %}
+  {% include 'project-pane.html' %} {% if user.is_authenticated %} {% include "project-create.html" %} {% endif %}
 </div>
 
 {% endblock %}

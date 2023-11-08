@@ -1,7 +1,8 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import flash, redirect, render_template, request, url_for
 from flask_login import current_user
-from nikola_carpentry.app import app
+
 from nikola_carpentry import ReviewForm, db
+from nikola_carpentry.app import app
 from nikola_carpentry.models import Review
 
 

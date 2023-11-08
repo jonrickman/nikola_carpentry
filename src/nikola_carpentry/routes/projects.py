@@ -1,8 +1,9 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import flash, redirect, render_template, request, url_for
 from flask_login import current_user
-from nikola_carpentry import app, ProjectForm, db
-from nikola_carpentry.models import Project, ProjectFile, Tag
 from werkzeug.utils import secure_filename
+
+from nikola_carpentry import ProjectForm, app, db
+from nikola_carpentry.models import Project, ProjectFile, Tag
 
 
 @app.route("/projects", methods=["GET", "POST"])

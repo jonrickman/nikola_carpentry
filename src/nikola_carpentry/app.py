@@ -1,11 +1,12 @@
 import json
-from pathlib import Path
+
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+from flask_ckeditor import CKEditor
 from flask_login import LoginManager
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 from sqlalchemy.orm import DeclarativeBase
-from flask_ckeditor import CKEditor
+
 from nikola_carpentry.config import config
 
 

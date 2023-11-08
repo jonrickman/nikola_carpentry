@@ -1,6 +1,7 @@
 import smtplib
-from nikola_carpentry import app, Contact
 from email.mime.text import MIMEText
+
+from nikola_carpentry import Contact, app
 
 HOST = app.config["SMTP_HOST"]
 PORT = app.config["SMTP_PORT"]

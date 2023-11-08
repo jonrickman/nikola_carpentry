@@ -1,11 +1,7 @@
-{% extends "base.html" %}
-
-{% block head %}
+{% extends "base.html" %} {% block head %}
 <title>Nikola Custom Carpentry</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" type="text/css" />
-{% endblock %}
-
-{% block body %}
+{% endblock %} {% block body %}
 
 <div id="header" class="d-flex text-center bg-primary text-white py-5">
   <div class="container">
@@ -14,20 +10,71 @@
 </div>
 
 {% include 'error-modal.html' %}
-
+<div class="container py-3 px-4 my-3 shadow">
+  <div class="row">
+    <h3 class="display-4 text-center">Our Mission</h3>
+  </div>
+  <div class="row">
+    <div class="col">
+      <p class="mx-4 px-4">
+        The mission of Nikola Custom Carpentry and Woodworking is to give every customer exactly what they want and to make it with such craftsmanship that it
+        will stand the test of time and become family heirlooms. I start this process by meeting/talking with each customer and getting an idea of what the
+        customer is wanting. During this meeting, I ask multiple questions to determine what type of materials will be needed, take/get measurements to know how
+        much materials will be needed, and to get an overall understanding of what will be needed to complete the project. I then price out the materials so
+        that I can give the customer an estimate for the deposit for the project. Once the deposit is given, I start working on the project, many times taking
+        progression pictures of the project and sending them to the customer to make sure I am meeting their expectations. Once the project is complete, the
+        customer can then choose to have their project sent to them, delivered if close enough, or to come pick it up themselves. When the customer receives
+        their project, I ask them to inspect it closely to make sure it is what they requested. After the customer’s inspection, if there is anything they are
+        not satisfied with, I simply request they send/give the project back so that I can fix it, free of charge.
+      </p>
+    </div>
+    <div class="col">
+      <img src="{{ url_for('static', filename='img/rack.jpg') }}" class="d-block img-fluid img-thumbnail h-100 w-100" />
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <h3 class="display-4">Logistics</h3>
+  </div>
+  <div class="row">
+    <div class="col">Nikola Custom Carpentry primarily services the greater Birmingham area and is based out of Morris, Alabama.</div>
+    <div class="col">
+      <img src="{{ url_for('static', filename='img/rack.jpg') }}" class="d-block img-fluid img-thumbnail h-100 w-100" />
+    </div>
+  </div>
+</div>
+<div class="row">
+  <h3 class="display-4 text-center">Our Mission</h3>
+</div>
+<div class="row">
+  <div class="col">
+    <p class="mx-4 px-4">
+      The mission of Nikola Custom Carpentry and Woodworking is to give every customer exactly what they want and to make it with such craftsmanship that it
+      will stand the test of time and become family heirlooms. I start this process by meeting/talking with each customer and getting an idea of what the
+      customer is wanting. During this meeting, I ask multiple questions to determine what type of materials will be needed, take/get measurements to know how
+      much materials will be needed, and to get an overall understanding of what will be needed to complete the project. I then price out the materials so that
+      I can give the customer an estimate for the deposit for the project. Once the deposit is given, I start working on the project, many times taking
+      progression pictures of the project and sending them to the customer to make sure I am meeting their expectations. Once the project is complete, the
+      customer can then choose to have their project sent to them, delivered if close enough, or to come pick it up themselves. When the customer receives their
+      project, I ask them to inspect it closely to make sure it is what they requested. After the customer’s inspection, if there is anything they are not
+      satisfied with, I simply request they send/give the project back so that I can fix it, free of charge.
+    </p>
+  </div>
+  <div class="col">
+    <img src="{{ url_for('static', filename='img/rack.jpg') }}" class="d-block img-fluid img-thumbnail h-100 w-100" />
+  </div>
+</div>
 <div id="index-carousel" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="{{ url_for('static', filename='img/rack.jpg') }}" class="d-block img-fluid img-thumbnail h-100 w-100"
-        alt="...">
+      <img src="{{ url_for('static', filename='img/rack.jpg') }}" class="d-block img-fluid img-thumbnail h-100 w-100" alt="..." />
     </div>
     <div class="carousel-item">
-      <img src="{{ url_for('static', filename='img/grinch.jpg') }}" class="d-block img-fluid img-thumbnail h-100 w-100"
-        alt="...">
+      <img src="{{ url_for('static', filename='img/grinch.jpg') }}" class="d-block img-fluid img-thumbnail h-100 w-100" alt="..." />
     </div>
     <div class="carousel-item">
-      <img src="{{ url_for('static', filename='img/arch.jpg') }}" class="d-block img-fluid img-thumbnail h-100 w-100"
-        alt="...">
+      <img src="{{ url_for('static', filename='img/arch.jpg') }}" class="d-block img-fluid img-thumbnail h-100 w-100" alt="..." />
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#index-carousel" data-bs-slide="prev">
@@ -40,14 +87,13 @@
   </button>
 </div>
 
-{% endblock %}
-{% block scripts %}
-<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"> </script>
-<script src="{{ url_for('static', filename='js/jquery.min.js') }}"> </script>
+{% endblock %} {% block scripts %}
+<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
 <script>
   $(document).ready(function () {
-    $('.carousel').carousel({
-      interval: 2500
+    $(".carousel").carousel({
+      interval: 2500,
     });
   });
 </script>

@@ -1,17 +1,11 @@
+from flask_ckeditor import CKEditorField
 from flask_wtf import FlaskForm
 # from flask_wtf.file import FileAllowed  # TODO: Not working as intended
-from wtforms import (
-    StringField,
-    SubmitField,
-    PasswordField,
-    IntegerField,
-    BooleanField,
-    MultipleFileField,
-    SelectMultipleField,
-    TextAreaField,
-)
-from flask_ckeditor import CKEditorField
+from wtforms import (BooleanField, IntegerField, MultipleFileField,
+                     PasswordField, SelectMultipleField, StringField,
+                     SubmitField, TextAreaField)
 from wtforms.validators import DataRequired, InputRequired
+
 from nikola_carpentry.app import app
 from nikola_carpentry.models import Tag
 
@@ -41,7 +35,6 @@ class ContactForm(FlaskForm):
     email = StringField("Email Address")
     phone = StringField("Phone Number")
     content = TextAreaField("Contact Message")
-    # content = CKEditorField("Write a message", validators=[DataRequired()])
     submit = SubmitField("Send contact request!")
 
 
@@ -66,5 +59,4 @@ class ReviewForm(FlaskForm):
     title = StringField("Title", validators=[DataRequired()])
     rating = IntegerField("Rating")
     content = TextAreaField("Review Message")
-    # content = CKEditorField("Content", validators=[DataRequired()])
     submit = SubmitField("Submit!")

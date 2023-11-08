@@ -1,10 +1,12 @@
-from flask import render_template, flash, redirect, url_for, request
-from flask_login import login_user, current_user, login_required, logout_user
-from flask_httpauth import HTTPBasicAuth
 from datetime import datetime
+
+from flask import flash, redirect, render_template, request, url_for
+from flask_httpauth import HTTPBasicAuth
+from flask_login import current_user, login_required, login_user, logout_user
 from werkzeug.security import check_password_hash
-from nikola_carpentry import app, db, LoginForm, UserForm, TagForm
-from nikola_carpentry.models import AdminUser, Tag, Review
+
+from nikola_carpentry import LoginForm, TagForm, UserForm, app, db
+from nikola_carpentry.models import AdminUser, Review, Tag
 
 basicAuth = HTTPBasicAuth()
 

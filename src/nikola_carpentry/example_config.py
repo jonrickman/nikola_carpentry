@@ -1,6 +1,5 @@
 from pathlib import Path
 
-
 config = {
     # database stuff
     "SQLALCHEMY_DATABASE_URI": "sqlite:///app.db",

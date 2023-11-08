@@ -1,4 +1,5 @@
-from .app import db, login_manager, app
-from .forms import LoginForm, ReviewForm, ContactForm, ProjectForm, UserForm, TagForm
-from .models import AdminUser, Review, Project, ProjectFile, Contact, Tag
+from .app import app, db, login_manager
+from .forms import (ContactForm, LoginForm, ProjectForm, ReviewForm, TagForm,
+                    UserForm)
 from .mailer import send_contact_email
+from .models import AdminUser, Contact, Project, ProjectFile, Review, Tag

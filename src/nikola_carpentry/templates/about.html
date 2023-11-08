@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}" type="text/css" />
 
-
 {% block body %}
 
 <div id="header" class="d-flex text-center bg-primary text-white py-5">
@@ -12,4 +11,37 @@
 
 {% include 'error-modal.html' %}
 
+<div>
+  <div>
+    The owner, Mark Nikola, is a husband and father of two beautiful children, Phillip and Gwendolyn. His father, Nick Nikola, has done carpentry and
+    woodworking all his life. Starting at a young age, Mark would watch his dad as he would do projects in his workshop. Mark would help his dad by pulling
+    nails out of boards and gathering up scrap pieces of wood. As he grew older, Mark’s dad would start letting him help with his projects by showing him how
+    you cut pieces of wood with a tabletop jigsaw making jigsaw puzzles. Eventually, Mark was able to start helping his dad with bigger projects, like helping
+    to build decks, working on additions to his dad’s workshop and their house, and many other various projects. Now, Mark has taken his love and creativity for
+    the art of carpentry and woodworking to the next level by starting a small business, Nikola Custom Carpentry and Woodworking. Mark would just like to remind
+    every customer that when you buy from a small business, you’re not only helping support a father and his family, you are also helping to support the goals
+    and dreams of a wife and two children.
+  </div>
+  <div>
+    Mark has worked in multiple businesses that deal with customer service since he started his own business mowing lawns for six customers before the age of
+    14. That turned into working construction during his years in high school. After starting college, Mark started working in the retail industry and worked in
+    it for over 15 years. That was when he truly realized how many times the customer never really received the service they truly deserved. Now, as a worker in
+    the healthcare industry, Mark has learned that helping people has become a true calling to him.
+  </div>
+  <div>
+    Comment from the owner: “I started this business with the goals of giving EVERY customer EXACTLY what they want and to make it with such craftsmanship that
+    it will stand the test of time and become family heirlooms. I have discovered that one of my passions in this life is to find a way that I can truly help
+    people. After having worked in companies that dealt with customer service for over 15 years and having seen, firsthand, how many times they fail at
+    delivering this, customer satisfaction will always be my top priority.”
+  </div>
+</div>
+
+<div class="container">
+  <a href="https://facebook.com">
+    <img src="{{ url_for('static', filename='img/facebook.jpg') }}" class="thumbnail" alt="Facebook" />
+  </a>
+  <a href="https://instagram.com">
+    <img src="{{ url_for('static', filename='img/instagram.png') }}" class="thumbnail" alt="Instagram" />
+  </a>
+</div>
 {% endblock %}
